@@ -1,6 +1,6 @@
 #include <xc.h>           // processor SFR definitions
 #include <sys/attribs.h>  // __ISR macro
-#define  WAIT_TIME 24000
+#define  WAIT_TIME 12000
 
 // DEVCFG0
 #pragma config DEBUG 		= 0b10	// no debugging
