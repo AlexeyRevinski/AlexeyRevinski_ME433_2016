@@ -1,11 +1,12 @@
-#include<xc.h>           // processor SFR definitions
-#include<sys/attribs.h>  // __ISR macro
+#include <xc.h>           // processor SFR definitions
+#include <sys/attribs.h>  // __ISR macro
+#define  WAIT_TIME 24000
 
 // DEVCFG0
 #pragma config DEBUG 		= 0b10	// no debugging
 #pragma config JTAGEN 		= 0b0 	// no jtag
 #pragma config ICESEL 		= 0b11 	// use PGED1 and PGEC1
-#pragma config PWP 			= 0x1FF // no write protect
+#pragma config PWP 			= 0x3F // no write protect
 #pragma config BWP 			= 0b1 	// no boot write protect
 #pragma config CP 			= 0b1 	// no code protect
 
@@ -16,7 +17,7 @@
 #pragma config POSCMOD 		= 0b10 	// high speed crystal mode
 #pragma config OSCIOFNC 	= 0b1 	// free up secondary osc pins
 #pragma config FPBDIV 		= 0b00 	// divide CPU freq by 1 for peripheral bus clock
-#pragma config FCKSM 		= 0b10 	// do not enable clock switch
+#pragma config FCKSM 		= 0b11 	// do not enable clock switch
 #pragma config WDTPS 		= 0b10100 	// slowest wdt
 #pragma config WINDIS 		= 0b1 	// no wdt window
 #pragma config FWDTEN 		= 0b0 	// wdt off by default
@@ -37,8 +38,8 @@
 #pragma config FVBUSONIO 	= 0b1 	// USB BUSON controlled by USB module
 
 
-int main() {
-
+int main()
+{
     __builtin_disable_interrupts();
 
     // set the CP0 CONFIG register to indicate that kseg0 is cacheable (0x3)
@@ -55,12 +56,18 @@ int main() {
     
     // do your TRIS and LAT commands here
     
+    TRISAbits.TRISA4 = 0;       // RA4 is output
+    TRISBbits.TRISB4 = 1;       // RB4 is input
+    LATAbits.LATA4 = 1;			// LED is on
+    
     __builtin_enable_interrupts();
     
-    while(1) {
+    while(1)
+    {
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
+        _CP0_SET_COUNT(0);
+        LATAINV = 0b10000;
+        while(_CP0_GET_COUNT()!= WAIT_TIME){;}
 		// remember the core timer runs at half the CPU speed
-    }
-    
-    
+    }   
 }
