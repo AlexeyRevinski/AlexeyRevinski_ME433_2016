@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=
+SOURCEFILES_QUOTED_IF_SPACED=newxc32_newfile.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=
-POSSIBLE_DEPFILES=
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/newxc32_newfile.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/newxc32_newfile.o.d
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES=${OBJECTDIR}/newxc32_newfile.o
 
 # Source Files
-SOURCEFILES=
+SOURCEFILES=newxc32_newfile.c
 
 
 CFLAGS=
@@ -94,7 +94,19 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/newxc32_newfile.o: newxc32_newfile.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/newxc32_newfile.o.d 
+	@${RM} ${OBJECTDIR}/newxc32_newfile.o 
+	@${FIXDEPS} "${OBJECTDIR}/newxc32_newfile.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/newxc32_newfile.o.d" -o ${OBJECTDIR}/newxc32_newfile.o newxc32_newfile.c     
+	
 else
+${OBJECTDIR}/newxc32_newfile.o: newxc32_newfile.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/newxc32_newfile.o.d 
+	@${RM} ${OBJECTDIR}/newxc32_newfile.o 
+	@${FIXDEPS} "${OBJECTDIR}/newxc32_newfile.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/newxc32_newfile.o.d" -o ${OBJECTDIR}/newxc32_newfile.o newxc32_newfile.c     
+	
 endif
 
 # ------------------------------------------------------------------------------------
