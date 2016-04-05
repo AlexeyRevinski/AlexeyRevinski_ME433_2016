@@ -67,7 +67,9 @@ int main()
 	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
         _CP0_SET_COUNT(0);
         LATAINV = 0b10000;
-        while(_CP0_GET_COUNT()!= WAIT_TIME){;}
-		// remember the core timer runs at half the CPU speed
+        for(;_CP0_GET_COUNT()<(WAIT_TIME+1);)
+        {
+            while(!PORTBbits.RB4){;}
+        }
     }   
 }
