@@ -17216,8 +17216,6 @@ Used on FTDI breakouts</description>
 <wire x1="-12.7" y1="-35.56" x2="12.7" y2="-35.56" width="0.254" layer="94"/>
 <wire x1="12.7" y1="-35.56" x2="12.7" y2="35.56" width="0.254" layer="94"/>
 <wire x1="12.7" y1="35.56" x2="-12.7" y2="35.56" width="0.254" layer="94"/>
-<text x="-12.7" y="38.1" size="1.778" layer="94">&gt;NAME</text>
-<text x="2.54" y="38.1" size="1.778" layer="94">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
