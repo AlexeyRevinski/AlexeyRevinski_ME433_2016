@@ -17183,6 +17183,40 @@ Used on FTDI breakouts</description>
 <text x="-5.08" y="10.16" size="1.27" layer="94">&gt;NAME</text>
 <text x="2.54" y="10.16" size="1.27" layer="94">&gt;VALUE</text>
 </symbol>
+<symbol name="PIC32MX250F128B">
+<pin name="7.RB3" x="-15.24" y="2.54" length="middle"/>
+<pin name="6.RB2" x="-15.24" y="7.62" length="middle"/>
+<pin name="5.RB1" x="-15.24" y="12.7" length="middle"/>
+<pin name="4.RB0" x="-15.24" y="17.78" length="middle"/>
+<pin name="3.RA1" x="-15.24" y="22.86" length="middle"/>
+<pin name="2.RA0" x="-15.24" y="27.94" length="middle"/>
+<pin name="1.MCLR" x="-15.24" y="33.02" length="middle"/>
+<pin name="8.VSS" x="-15.24" y="-2.54" length="middle"/>
+<pin name="9.RA2" x="-15.24" y="-7.62" length="middle"/>
+<pin name="10.RA3" x="-15.24" y="-12.7" length="middle"/>
+<pin name="11.RB4" x="-15.24" y="-17.78" length="middle"/>
+<pin name="12.RA4" x="-15.24" y="-22.86" length="middle"/>
+<pin name="13.VDD" x="-15.24" y="-27.94" length="middle"/>
+<pin name="14.RB5" x="-15.24" y="-33.02" length="middle"/>
+<pin name="21.RB10" x="15.24" y="-2.54" length="middle" rot="R180"/>
+<pin name="22.RB11" x="15.24" y="2.54" length="middle" rot="R180"/>
+<pin name="23.VUSB" x="15.24" y="7.62" length="middle" rot="R180"/>
+<pin name="24.RB13" x="15.24" y="12.7" length="middle" rot="R180"/>
+<pin name="25.RB14" x="15.24" y="17.78" length="middle" rot="R180"/>
+<pin name="26.RB15" x="15.24" y="22.86" length="middle" rot="R180"/>
+<pin name="27.AVSS" x="15.24" y="27.94" length="middle" rot="R180"/>
+<pin name="28.AVDD" x="15.24" y="33.02" length="middle" rot="R180"/>
+<pin name="20.VCAP" x="15.24" y="-7.62" length="middle" rot="R180"/>
+<pin name="19.VSS" x="15.24" y="-12.7" length="middle" rot="R180"/>
+<pin name="18.RB9" x="15.24" y="-17.78" length="middle" rot="R180"/>
+<pin name="17.RB8" x="15.24" y="-22.86" length="middle" rot="R180"/>
+<pin name="16.RB7" x="15.24" y="-27.94" length="middle" rot="R180"/>
+<pin name="15.VBUS" x="15.24" y="-33.02" length="middle" rot="R180"/>
+<wire x1="-12.7" y1="35.56" x2="-12.7" y2="-35.56" width="0.254" layer="94"/>
+<wire x1="-12.7" y1="-35.56" x2="12.7" y2="-35.56" width="0.254" layer="94"/>
+<wire x1="12.7" y1="-35.56" x2="12.7" y2="35.56" width="0.254" layer="94"/>
+<wire x1="12.7" y1="35.56" x2="-12.7" y2="35.56" width="0.254" layer="94"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="R-US_" prefix="R" uservalue="yes">
@@ -23806,6 +23840,23 @@ Standard 15-pin 0.1" header. Use with straight break away headers (SKU : PRT-001
 <connect gate="G$1" pin="7" pad="7"/>
 <connect gate="G$1" pin="8" pad="8"/>
 <connect gate="G$1" pin="9" pad="9"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="MCP1702">
+<gates>
+<gate name="G$1" symbol="MCP1702" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TO92">
+<connects>
+<connect gate="G$1" pin="1.GND" pad="1"/>
+<connect gate="G$1" pin="2.VIN" pad="2"/>
+<connect gate="G$1" pin="3.VOUT" pad="3"/>
 </connects>
 <technologies>
 <technology name=""/>
