@@ -14021,17 +14021,17 @@ Source: www.kingbright.com</description>
 <part name="J1" library="ME433" deviceset="M06" device="SILK_FEMALE_PTH"/>
 <part name="J2" library="ME433" deviceset="M08" device=""/>
 <part name="J3" library="ME433" deviceset="M08" device=""/>
-<part name="LED1" library="ME433" deviceset="LED" device="3MM"/>
-<part name="LED2" library="ME433" deviceset="LED" device="3MM"/>
-<part name="R1" library="ME433" deviceset="R-US_" device="0207/10"/>
-<part name="R2" library="ME433" deviceset="R-US_" device="0207/10"/>
-<part name="R3" library="ME433" deviceset="R-US_" device="0207/10"/>
-<part name="C1" library="ME433" deviceset="C-US" device="025-024X044"/>
-<part name="C2" library="ME433" deviceset="C-US" device="025-024X044"/>
-<part name="C3" library="ME433" deviceset="C-US" device="025-024X044"/>
-<part name="C4" library="ME433" deviceset="C-US" device="025-024X044"/>
-<part name="C5" library="ME433" deviceset="CPOL-US" device="E2.5-6"/>
-<part name="C6" library="ME433" deviceset="CPOL-US" device="E2.5-6"/>
+<part name="LED1" library="ME433" deviceset="LED" device="3MM" value="GREEN"/>
+<part name="LED2" library="ME433" deviceset="LED" device="3MM" value="RED"/>
+<part name="R1" library="ME433" deviceset="R-US_" device="0207/10" value="10k"/>
+<part name="R2" library="ME433" deviceset="R-US_" device="0207/10" value="10k"/>
+<part name="R3" library="ME433" deviceset="R-US_" device="0207/10" value="330"/>
+<part name="C1" library="ME433" deviceset="C-US" device="025-024X044" value="0.1uF"/>
+<part name="C2" library="ME433" deviceset="C-US" device="025-024X044" value="0.1uF"/>
+<part name="C3" library="ME433" deviceset="C-US" device="025-024X044" value="0.1uF"/>
+<part name="C4" library="ME433" deviceset="C-US" device="025-024X044" value="0.1uF"/>
+<part name="C5" library="ME433" deviceset="CPOL-US" device="E2.5-6" value="10uF"/>
+<part name="C6" library="ME433" deviceset="CPOL-US" device="E2.5-6" value="10uF"/>
 <part name="+3V1" library="ME433" deviceset="+3V3" device=""/>
 <part name="P+1" library="ME433" deviceset="+5V" device=""/>
 <part name="GND2" library="ME433" deviceset="GND" device=""/>
@@ -14039,7 +14039,7 @@ Source: www.kingbright.com</description>
 <part name="GND3" library="ME433" deviceset="GND" device=""/>
 <part name="+3V3" library="ME433" deviceset="+3V3" device=""/>
 <part name="GND1" library="ME433" deviceset="GND" device=""/>
-<part name="R4" library="ME433" deviceset="R-US_" device="0207/10"/>
+<part name="R4" library="ME433" deviceset="R-US_" device="0207/10" value="330"/>
 </parts>
 <sheets>
 <sheet>
@@ -14072,7 +14072,7 @@ Source: www.kingbright.com</description>
 <instance part="GND2" gate="1" x="-43.18" y="30.48"/>
 <instance part="+3V2" gate="G$1" x="-30.48" y="48.26"/>
 <instance part="GND3" gate="1" x="-44.45" y="-30.48"/>
-<instance part="+3V3" gate="G$1" x="-44.45" y="-5.08"/>
+<instance part="+3V3" gate="G$1" x="-44.45" y="-1.27"/>
 <instance part="GND1" gate="1" x="22.86" y="-15.24"/>
 <instance part="R4" gate="G$1" x="5.08" y="49.53" rot="R90"/>
 </instances>
@@ -14120,7 +14120,7 @@ Source: www.kingbright.com</description>
 </segment>
 <segment>
 <pinref part="U$7" gate="G$1" pin="2.VIN"/>
-<label x="29.21" y="49.53" size="1.778" layer="95" rot="R180"/>
+<label x="35.56" y="49.53" size="1.778" layer="95" rot="R180"/>
 <pinref part="C3" gate="G$1" pin="1"/>
 </segment>
 </net>
@@ -14184,7 +14184,7 @@ Source: www.kingbright.com</description>
 <segment>
 <pinref part="R2" gate="G$1" pin="1"/>
 <pinref part="+3V3" gate="G$1" pin="+3V3"/>
-<wire x1="-44.45" y1="-6.35" x2="-44.45" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="-44.45" y1="-6.35" x2="-44.45" y2="-3.81" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="13.VDD"/>
@@ -14200,7 +14200,7 @@ Source: www.kingbright.com</description>
 <segment>
 <pinref part="U$7" gate="G$1" pin="3.VOUT"/>
 <wire x1="30.48" y1="44.45" x2="19.05" y2="44.45" width="0.1524" layer="91"/>
-<label x="29.21" y="44.45" size="1.778" layer="95" rot="R180"/>
+<label x="31.75" y="43.18" size="1.778" layer="95" rot="R180"/>
 <pinref part="LED2" gate="G$1" pin="A"/>
 <pinref part="C6" gate="G$1" pin="+"/>
 <wire x1="19.05" y1="44.45" x2="12.7" y2="44.45" width="0.1524" layer="91"/>
@@ -14474,7 +14474,7 @@ Source: www.kingbright.com</description>
 <segment>
 <pinref part="U$2" gate="G$1" pin="26.RB15"/>
 <wire x1="15.24" y1="22.86" x2="16.51" y2="22.86" width="0.1524" layer="91"/>
-<label x="16.51" y="22.86" size="1.778" layer="95"/>
+<label x="19.05" y="21.59" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$3" class="0">

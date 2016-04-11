@@ -14377,7 +14377,7 @@ Source: www.kingbright.com</description>
 <label x="-19.05" y="12.7" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="GREENLED" class="0">
 <segment>
 <pinref part="LED1" gate="G$1" pin="C"/>
 <pinref part="R3" gate="G$1" pin="2"/>
