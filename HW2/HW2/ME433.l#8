@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -16460,6 +16460,25 @@ Used on FTDI breakouts</description>
 <rectangle x1="2.286" y1="-0.254" x2="2.794" y2="0.254" layer="51"/>
 <rectangle x1="-0.254" y1="-0.254" x2="0.254" y2="0.254" layer="51"/>
 <rectangle x1="-2.794" y1="-0.254" x2="-2.286" y2="0.254" layer="51"/>
+</package>
+<package name="SLIDE_SWITCH">
+<pad name="1" x="-3.98" y="0" drill="1.016" diameter="1.778" rot="R90"/>
+<pad name="2" x="-1.99" y="0" drill="1.016" diameter="1.778" rot="R90"/>
+<pad name="3" x="0" y="0" drill="1.016" diameter="1.778" rot="R90"/>
+<pad name="4" x="1.99" y="0" drill="1.016" diameter="1.778" rot="R90"/>
+<pad name="5" x="3.98" y="0" drill="1.016" diameter="1.778" rot="R90"/>
+<text x="-4.9262" y="2.0288" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-4.95" y="-2.975" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="3.726" y1="-0.254" x2="4.234" y2="0.254" layer="51"/>
+<rectangle x1="1.736" y1="-0.254" x2="2.244" y2="0.254" layer="51"/>
+<rectangle x1="-0.254" y1="-0.254" x2="0.254" y2="0.254" layer="51"/>
+<rectangle x1="-2.244" y1="-0.254" x2="-1.736" y2="0.254" layer="51"/>
+<rectangle x1="-4.234" y1="-0.254" x2="-3.726" y2="0.254" layer="51"/>
+<wire x1="0" y1="1.2" x2="-5.3" y2="1.2" width="0.3048" layer="21"/>
+<wire x1="-5.3" y1="1.2" x2="-5.3" y2="-1.2" width="0.3048" layer="21"/>
+<wire x1="-5.3" y1="-1.2" x2="5.3" y2="-1.2" width="0.3048" layer="21"/>
+<wire x1="5.3" y1="-1.2" x2="5.3" y2="1.2" width="0.3048" layer="21"/>
+<wire x1="5.3" y1="1.2" x2="-0.1" y2="1.2" width="0.3048" layer="21"/>
 </package>
 </packages>
 <symbols>
