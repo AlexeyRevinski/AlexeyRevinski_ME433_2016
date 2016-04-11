@@ -16468,7 +16468,7 @@ Used on FTDI breakouts</description>
 <pad name="4" x="1.99" y="0" drill="1.016" diameter="1.778" rot="R90"/>
 <pad name="5" x="3.98" y="0" drill="1.016" diameter="1.778" rot="R90"/>
 <text x="-4.9262" y="2.0288" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-4.95" y="-2.975" size="1.27" layer="27">&gt;VALUE</text>
+<text x="-4.9" y="-3.375" size="1.27" layer="27">&gt;VALUE</text>
 <rectangle x1="3.726" y1="-0.254" x2="4.234" y2="0.254" layer="51"/>
 <rectangle x1="1.736" y1="-0.254" x2="2.244" y2="0.254" layer="51"/>
 <rectangle x1="-0.254" y1="-0.254" x2="0.254" y2="0.254" layer="51"/>
