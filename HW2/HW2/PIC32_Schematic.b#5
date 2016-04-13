@@ -710,41 +710,66 @@ design rules under a new name.</description>
 </autorouter>
 <elements>
 <element name="C1" library="ME433" package="C025-024X044" value="0.1uF" x="41.99" y="45.79" rot="R270"/>
-<element name="C2" library="ME433" package="C025-024X044" value="0.1uF" x="26.64" y="15.29" rot="R270"/>
+<element name="C2" library="ME433" package="C025-024X044" value="0.1uF" x="26.64" y="15.29" smashed="yes" rot="R270">
+<attribute name="NAME" x="26.037" y="20.068" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="23.973" y="17.068" size="1.27" layer="27" ratio="10" rot="R270"/>
+</element>
 <element name="C3" library="ME433" package="C025-024X044" value="0.1uF" x="42.29" y="15.04" rot="R90"/>
-<element name="C4" library="ME433" package="C025-024X044" value="0.1uF" x="27.44" y="3.79" rot="R90"/>
+<element name="C4" library="ME433" package="C025-024X044" value="0.1uF" x="26.69" y="3.79" smashed="yes" rot="R90">
+<attribute name="NAME" x="27.293" y="6.512" size="1.27" layer="25" ratio="10" rot="R90"/>
+<attribute name="VALUE" x="29.357" y="2.012" size="1.27" layer="27" ratio="10" rot="R90"/>
+</element>
 <element name="C5" library="ME433" package="E2,5-6" value="10uF" x="42.05" y="25.42" rot="R270"/>
 <element name="C6" library="ME433" package="E2,5-6" value="10uF" x="33.64" y="3.92"/>
-<element name="J2" library="ME433" package="1X08_ROUND" value="" x="1.27" y="16.51" locked="yes" rot="R90">
+<element name="J2" library="ME433" package="1X08_ROUND" value="" x="1.27" y="16.51" locked="yes" smashed="yes" rot="R90">
 <attribute name="PROD_ID" value="CONN-08437" x="1.27" y="16.51" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="NAME" x="1.9412" y="12.6638" size="1.27" layer="25" ratio="10" rot="R90"/>
+<attribute name="VALUE" x="4.445" y="15.24" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="J3" library="ME433" package="1X08_ROUND" value="" x="48.895" y="34.29" locked="yes" rot="R270">
+<element name="J3" library="ME433" package="1X08_ROUND" value="" x="48.895" y="34.29" locked="yes" smashed="yes" rot="R270">
 <attribute name="PROD_ID" value="CONN-08437" x="48.895" y="34.29" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="NAME" x="48.2238" y="37.6362" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="45.72" y="35.56" size="1.27" layer="27" rot="R270"/>
 </element>
 <element name="LED1" library="ME433" package="LED3MM" value="GREEN" x="7.41" y="12.4" rot="R270"/>
 <element name="LED2" library="ME433" package="LED3MM" value="RED" x="47.02" y="45.9" rot="R270"/>
-<element name="R1" library="ME433" package="0207/10" value="10k" x="18.25" y="2.5"/>
-<element name="R2" library="ME433" package="0207/10" value="10k" x="18.25" y="5.25" rot="R180"/>
-<element name="R3" library="ME433" package="0207/10" value="330" x="18.25" y="8.05"/>
-<element name="R4" library="ME433" package="0207/10" value="330" x="42.05" y="37.3" rot="R270"/>
-<element name="U$1" library="ME433" package="8MHZ_XTAL" value="8MHZ_XTAL" x="26.73" y="26.92" rot="R90"/>
+<element name="R1" library="ME433" package="0207/10" value="10k" x="18.25" y="2.5" smashed="yes">
+<attribute name="NAME" x="19.202" y="2.024" size="1.27" layer="25" ratio="10"/>
+<attribute name="VALUE" x="15.4894" y="1.865" size="1.27" layer="27" ratio="10"/>
+</element>
+<element name="R2" library="ME433" package="0207/10" value="10k" x="18.25" y="5.25" smashed="yes" rot="R180">
+<attribute name="NAME" x="21.298" y="5.976" size="1.27" layer="25" ratio="10" rot="R180"/>
+<attribute name="VALUE" x="18.0106" y="5.885" size="1.27" layer="27" ratio="10" rot="R180"/>
+</element>
+<element name="R3" library="ME433" package="0207/10" value="330" x="18.25" y="8.05" smashed="yes" rot="R180">
+<attribute name="NAME" x="21.298" y="8.776" size="1.27" layer="25" ratio="10" rot="R180"/>
+<attribute name="VALUE" x="18.2606" y="8.685" size="1.27" layer="27" ratio="10" rot="R180"/>
+</element>
+<element name="R4" library="ME433" package="0207/10" value="330" x="42.05" y="37.3" smashed="yes" rot="R270">
+<attribute name="NAME" x="41.324" y="40.098" size="1.27" layer="25" ratio="10" rot="R270"/>
+<attribute name="VALUE" x="41.665" y="37.3106" size="1.27" layer="27" ratio="10" rot="R270"/>
+</element>
+<element name="U1" library="ME433" package="8MHZ_XTAL" value="8MHZ_XTAL" x="26.73" y="26.92" smashed="yes" rot="R90">
+<attribute name="NAME" x="24.9012" y="23.0338" size="1.27" layer="25" ratio="10" rot="R90"/>
+<attribute name="VALUE" x="24.905" y="26.11" size="1.27" layer="27" rot="R90"/>
+</element>
 <element name="U$2" library="ME433" package="DIL28-3" value="PIC32MX250F128B" x="33.5" y="30.5" rot="R270"/>
 <element name="RESET" library="ME433" package="PUSH-BUTTON" value="" x="4.47" y="5.01" rot="R90"/>
 <element name="USER" library="ME433" package="PUSH-BUTTON" value="" x="10.16" y="5.17" rot="R90"/>
-<element name="U$5" library="ME433" package="SLIDE_SWITCH" value="SLIDE_SWITCH" x="48.21" y="6.01" rot="R90"/>
-<element name="U$6" library="ME433" package="USB-MB-H" value="USB-MB-H-5PIN" x="41.91" y="4.28" rot="R90"/>
-<element name="U$7" library="ME433" package="TO92" value="MCP1702" x="33.59" y="10.22" rot="R180"/>
+<element name="SW" library="ME433" package="SLIDE_SWITCH" value="" x="48.21" y="6.01" rot="R90"/>
+<element name="USB" library="ME433" package="USB-MB-H" value="USB-MB-H-5PIN" x="41.91" y="4.28" rot="R90"/>
+<element name="VR" library="ME433" package="TO92" value="MCP1702" x="33.59" y="10.22" rot="R180"/>
 <element name="J4" library="ME433" package="1X05" value="" x="1.25" y="47" rot="R270"/>
 </elements>
 <signals>
 <signal name="D-">
-<contactref element="U$6" pad="D-"/>
+<contactref element="USB" pad="D-"/>
 <contactref element="U$2" pad="22"/>
 <wire x1="41.11" y1="8.18" x2="37.31" y2="31.77" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="D+">
 <contactref element="U$2" pad="21"/>
-<contactref element="U$6" pad="D+"/>
+<contactref element="USB" pad="D+"/>
 <wire x1="41.91" y1="9.38" x2="37.31" y2="29.23" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$9">
@@ -754,9 +779,9 @@ design rules under a new name.</description>
 </signal>
 <signal name="+5V">
 <contactref element="U$2" pad="15"/>
-<contactref element="U$5" pad="4"/>
+<contactref element="SW" pad="4"/>
 <contactref element="J3" pad="7"/>
-<contactref element="U$7" pad="2"/>
+<contactref element="VR" pad="2"/>
 <contactref element="C3" pad="1"/>
 <wire x1="42.29" y1="13.77" x2="48.895" y2="19.05" width="0" layer="19" extent="1-1"/>
 <wire x1="37.31" y1="13.99" x2="42.29" y2="13.77" width="0" layer="19" extent="1-1"/>
@@ -765,7 +790,7 @@ design rules under a new name.</description>
 </signal>
 <signal name="A3">
 <contactref element="U$2" pad="10"/>
-<contactref element="U$1" pad="1"/>
+<contactref element="U1" pad="1"/>
 <wire x1="26.73" y1="24.38" x2="29.69" y2="24.15" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="A1">
@@ -791,7 +816,7 @@ design rules under a new name.</description>
 <contactref element="R2" pad="1"/>
 <contactref element="U$2" pad="13"/>
 <contactref element="C2" pad="1"/>
-<contactref element="U$7" pad="3"/>
+<contactref element="VR" pad="3"/>
 <contactref element="LED2" pad="A"/>
 <contactref element="C6" pad="+"/>
 <contactref element="C4" pad="1"/>
@@ -803,8 +828,8 @@ design rules under a new name.</description>
 <wire x1="26.64" y1="16.56" x2="29.69" y2="16.53" width="0" layer="19" extent="1-1"/>
 <wire x1="32.32" y1="10.22" x2="29.69" y2="16.53" width="0" layer="19" extent="1-1"/>
 <wire x1="32.37" y1="3.92" x2="32.32" y2="10.22" width="0" layer="19" extent="1-1"/>
-<wire x1="27.44" y1="2.52" x2="32.37" y2="3.92" width="0" layer="19" extent="1-1"/>
-<wire x1="23.33" y1="2.5" x2="27.44" y2="2.52" width="0" layer="19" extent="1-1"/>
+<wire x1="26.69" y1="2.52" x2="32.37" y2="3.92" width="0" layer="19" extent="1-1"/>
+<wire x1="23.33" y1="2.5" x2="26.69" y2="2.52" width="0" layer="19" extent="1-1"/>
 <wire x1="23.33" y1="5.25" x2="23.33" y2="2.5" width="0" layer="19" extent="1-1"/>
 <wire x1="1.27" y1="19.05" x2="26.64" y2="16.56" width="0" layer="19" extent="1-1"/>
 <wire x1="1.25" y1="44.46" x2="1.27" y2="19.05" width="0" layer="19" extent="1-1"/>
@@ -812,10 +837,10 @@ design rules under a new name.</description>
 <signal name="GND" airwireshidden="yes">
 <contactref element="C5" pad="-"/>
 <contactref element="U$2" pad="19"/>
-<contactref element="U$6" pad="GND"/>
+<contactref element="USB" pad="GND"/>
 <contactref element="U$2" pad="27"/>
 <contactref element="C1" pad="2"/>
-<contactref element="U$1" pad="2"/>
+<contactref element="U1" pad="2"/>
 <contactref element="J2" pad="1"/>
 <contactref element="U$2" pad="8"/>
 <contactref element="RESET" pad="1"/>
@@ -823,7 +848,7 @@ design rules under a new name.</description>
 <contactref element="C2" pad="2"/>
 <contactref element="R3" pad="1"/>
 <contactref element="J3" pad="8"/>
-<contactref element="U$7" pad="1"/>
+<contactref element="VR" pad="1"/>
 <contactref element="R4" pad="2"/>
 <contactref element="C4" pad="2"/>
 <contactref element="C6" pad="-"/>
@@ -838,12 +863,12 @@ design rules under a new name.</description>
 <wire x1="43.51" y1="9.38" x2="42.29" y2="16.31" width="0" layer="19" extent="1-1"/>
 <wire x1="34.86" y1="10.22" x2="43.51" y2="9.38" width="0" layer="19" extent="1-1"/>
 <wire x1="34.91" y1="3.92" x2="34.86" y2="10.22" width="0" layer="19" extent="1-1"/>
-<wire x1="27.44" y1="5.06" x2="34.91" y2="3.92" width="0" layer="19" extent="1-1"/>
-<wire x1="26.64" y1="14.02" x2="27.44" y2="5.06" width="0" layer="19" extent="1-1"/>
+<wire x1="26.69" y1="5.06" x2="34.91" y2="3.92" width="0" layer="19" extent="1-1"/>
+<wire x1="26.64" y1="14.02" x2="26.69" y2="5.06" width="0" layer="19" extent="1-1"/>
 <wire x1="29.69" y1="29.23" x2="37.31" y2="24.15" width="0" layer="19" extent="1-1"/>
 <wire x1="26.73" y1="26.92" x2="29.69" y2="29.23" width="0" layer="19" extent="1-1"/>
-<wire x1="13.17" y1="8.05" x2="27.44" y2="5.06" width="0" layer="19" extent="1-1"/>
-<wire x1="10.16" y1="2.63" x2="13.17" y2="8.05" width="0" layer="19" extent="1-1"/>
+<wire x1="23.33" y1="8.05" x2="26.69" y2="5.06" width="0" layer="19" extent="1-1"/>
+<wire x1="10.16" y1="2.63" x2="23.33" y2="8.05" width="0" layer="19" extent="1-1"/>
 <wire x1="4.47" y1="2.47" x2="10.16" y2="2.63" width="0" layer="19" extent="1-1"/>
 <wire x1="1.27" y1="16.51" x2="4.47" y2="2.47" width="0" layer="19" extent="1-1"/>
 <wire x1="1.25" y1="41.92" x2="1.27" y2="16.51" width="0" layer="19" extent="1-1"/>
@@ -892,16 +917,16 @@ design rules under a new name.</description>
 <signal name="GREENLED">
 <contactref element="LED1" pad="K"/>
 <contactref element="R3" pad="2"/>
-<wire x1="7.41" y1="11.13" x2="23.33" y2="8.05" width="0" layer="19" extent="1-1"/>
+<wire x1="7.41" y1="11.13" x2="13.17" y2="8.05" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="ID">
 <contactref element="U$2" pad="14"/>
-<contactref element="U$6" pad="ID"/>
+<contactref element="USB" pad="ID"/>
 <wire x1="29.69" y1="13.99" x2="42.71" y2="8.18" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VBUS">
-<contactref element="U$5" pad="3"/>
-<contactref element="U$6" pad="VBUS"/>
+<contactref element="SW" pad="3"/>
+<contactref element="USB" pad="VBUS"/>
 <wire x1="40.31" y1="9.38" x2="48.21" y2="6.01" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="B7">
@@ -940,7 +965,7 @@ design rules under a new name.</description>
 <wire x1="42.05" y1="42.38" x2="47.02" y2="44.63" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="A2">
-<contactref element="U$1" pad="3"/>
+<contactref element="U1" pad="3"/>
 <contactref element="U$2" pad="9"/>
 <wire x1="29.69" y1="26.69" x2="26.73" y2="29.46" width="0" layer="19" extent="1-1"/>
 </signal>
