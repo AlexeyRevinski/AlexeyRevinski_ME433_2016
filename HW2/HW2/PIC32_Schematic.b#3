@@ -895,7 +895,7 @@ design rules under a new name.</description>
 <vertex x="-1" y="51.5"/>
 </polygon>
 </signal>
-<signal name="GND" airwireshidden="yes">
+<signal name="GND">
 <contactref element="C5" pad="-"/>
 <contactref element="MCU" pad="19"/>
 <contactref element="USB" pad="GND"/>
