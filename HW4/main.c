@@ -13,7 +13,7 @@ int main()
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 1;			// LED is on
     initSPI1();
-    initExpander();
+    initExpander(GP7);          // GP0 is input; rest are outputs
     __builtin_enable_interrupts();
     
     while(1)

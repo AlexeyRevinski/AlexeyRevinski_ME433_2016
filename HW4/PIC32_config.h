@@ -3,8 +3,10 @@
 
 #include <xc.h>           // processor SFR definitions
 #include <sys/attribs.h>  // __ISR macro
+#include "pin_expander.h"
 #include "i2c_master.h"
 #include "spi.h"
+
 
 // DEVCFG0
 #pragma config DEBUG 		= 0b10	// no debugging
@@ -40,5 +42,7 @@
 #pragma config IOL1WAY 		= 0b0 	// allow multiple reconfigurations
 #pragma config FUSBIDIO 	= 0b1 	// USB pins controlled by USB module
 #pragma config FVBUSONIO 	= 0b1 	// USB BUSON controlled by USB module
+
+
 
 #endif
