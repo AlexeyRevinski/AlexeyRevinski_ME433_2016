@@ -1,8 +1,7 @@
-#ifndef I2C_MASTER_H__
-#define I2C_MASTER_H__
-// Header file for i2c_master.c
-// helps implement use I2C2 as a master without using interrupts
+#ifndef I2C_MASTER_H
+#define I2C_MASTER_H
 
+void initI2C2(void);
 void i2c_master_setup(void);              // set up I2C2 as a master, at 100 kHz
 void i2c_master_start(void);              // send a START signal
 void i2c_master_restart(void);            // send a RESTART signal

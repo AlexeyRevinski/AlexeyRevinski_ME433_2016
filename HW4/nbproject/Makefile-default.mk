@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c i2c_master.c pin_expander.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c pin_expander.c spi.c i2c_master.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/pin_expander.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/i2c_master.o.d ${OBJECTDIR}/pin_expander.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/pin_expander.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/i2c_master.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/pin_expander.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/i2c_master.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/pin_expander.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/pin_expander.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/i2c_master.o
 
 # Source Files
-SOURCEFILES=main.c i2c_master.c pin_expander.c
+SOURCEFILES=main.c pin_expander.c spi.c i2c_master.c
 
 
 CFLAGS=
@@ -100,17 +100,23 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c     
 	
-${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/i2c_master.o.d 
-	@${RM} ${OBJECTDIR}/i2c_master.o 
-	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c     
-	
 ${OBJECTDIR}/pin_expander.o: pin_expander.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/pin_expander.o.d 
 	@${RM} ${OBJECTDIR}/pin_expander.o 
 	@${FIXDEPS} "${OBJECTDIR}/pin_expander.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/pin_expander.o.d" -o ${OBJECTDIR}/pin_expander.o pin_expander.c     
+	
+${OBJECTDIR}/spi.o: spi.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi.o.d 
+	@${RM} ${OBJECTDIR}/spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spi.o.d" -o ${OBJECTDIR}/spi.o spi.c     
+	
+${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/i2c_master.o.d 
+	@${RM} ${OBJECTDIR}/i2c_master.o 
+	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c     
 	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
@@ -119,17 +125,23 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/main.o 
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d" -o ${OBJECTDIR}/main.o main.c     
 	
-${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/i2c_master.o.d 
-	@${RM} ${OBJECTDIR}/i2c_master.o 
-	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c     
-	
 ${OBJECTDIR}/pin_expander.o: pin_expander.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/pin_expander.o.d 
 	@${RM} ${OBJECTDIR}/pin_expander.o 
 	@${FIXDEPS} "${OBJECTDIR}/pin_expander.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/pin_expander.o.d" -o ${OBJECTDIR}/pin_expander.o pin_expander.c     
+	
+${OBJECTDIR}/spi.o: spi.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi.o.d 
+	@${RM} ${OBJECTDIR}/spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spi.o.d" -o ${OBJECTDIR}/spi.o spi.c     
+	
+${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/i2c_master.o.d 
+	@${RM} ${OBJECTDIR}/i2c_master.o 
+	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c     
 	
 endif
 

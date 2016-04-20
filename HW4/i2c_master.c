@@ -1,5 +1,10 @@
-#include "i2c_master.h"
 #include <xc.h>
+#include "i2c_master.h"
+
+void initI2C2(void)
+{
+    ;
+}
 
 void i2c_master_setup(void) {
   I2C2BRG = 233; // for 100kHz;     // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2 

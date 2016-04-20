@@ -13,6 +13,9 @@ int main()
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 1;			// LED is on
     ANSELBbits.ANSB2 = 0;       // I2C2 analog off
+    initSPI1();
+    initI2C2();
+    initExpander();
     __builtin_enable_interrupts();
     
     while(1)
