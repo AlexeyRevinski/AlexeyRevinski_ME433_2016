@@ -12,9 +12,7 @@ int main()
     TRISAbits.TRISA4 = 0;       // RA4 is output
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 1;			// LED is on
-    ANSELBbits.ANSB2 = 0;       // I2C2 analog off
     initSPI1();
-    i2c_master_setup();
     initExpander();
     __builtin_enable_interrupts();
     
