@@ -1,9 +1,18 @@
 #include <xc.h>
 #include "i2c_master.h"
 
-void initI2C2(void)
+char i2c_master_read(char reg_addr)
 {
-    ;
+    char read_master;
+    i2c_master_start();
+    i2c_master_send((SLAVE_ADDR << 1) | 0); // writing
+    i2c_master_send(reg_addr);
+    i2c_master_restart();                   // send a RESTART to read
+    i2c_master_send((SLAVE_ADDR << 1) | 1); // reading
+    read_master = i2c_master_recv();        // receive a byte from the bus
+    i2c_master_ack(1);
+    i2c_master_stop();
+    return read_master;
 }
 
 void i2c_master_setup(void) {
