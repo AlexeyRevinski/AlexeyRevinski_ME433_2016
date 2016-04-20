@@ -6,6 +6,7 @@
 // MCP23008 ADDRESSES AND VALUES
 #define IODIR   (char) 0x00
 #define GPIO    (char) 0x09
+#define OLAT    (char) 0x0A
 #define GP0     (char) 1<<0
 #define GP1     (char) 1<<1
 #define GP2     (char) 1<<2

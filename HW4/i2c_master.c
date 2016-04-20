@@ -43,9 +43,7 @@ void i2c_master_restart(void) {
 void i2c_master_send(unsigned char byte) { // send a byte to slave
   I2C2TRN = byte;                   // if an address, bit 0 = 0 for write, 1 for read
   while(I2C2STATbits.TRSTAT) { ; }  // wait for the transmission to finish
-  if(I2C2STATbits.ACKSTAT) {        // if this is high, slave has not acknowledged
-      ;
-  }
+  while(I2C2STATbits.ACKSTAT) {;}
 }
 
 unsigned char i2c_master_recv(void) { // receive a byte from the slave
