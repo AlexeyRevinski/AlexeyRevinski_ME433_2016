@@ -15,6 +15,15 @@ char i2c_master_read(char reg_addr)
     return read_master;
 }
 
+void i2c_master_write(char reg_addr, char byte)
+{
+    i2c_master_start();
+    i2c_master_send((SLAVE_ADDR << 1) | 0); // writing
+    i2c_master_send(reg_addr);
+    i2c_master_send(byte);
+    i2c_master_stop();
+}
+
 void i2c_master_setup(void) {
   I2C2BRG = 233; // for 100kHz;     // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2 
   I2C2CONbits.ON = 1;               // turn on the I2C1 module
