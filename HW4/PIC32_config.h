@@ -43,6 +43,4 @@
 #pragma config FUSBIDIO 	= 0b1 	// USB pins controlled by USB module
 #pragma config FVBUSONIO 	= 0b1 	// USB BUSON controlled by USB module
 
-
-
 #endif
