@@ -3,6 +3,7 @@
 
 int main()
 {
+    char read_byte = 0;
     // PIC32 Setup
     __builtin_disable_interrupts();
     __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
@@ -13,17 +14,15 @@ int main()
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 1;			// LED is on
     initSPI1();
-    initExpander(GP7);          // GP0 is input; rest are outputs
+    initExpander(GP7);          // GP7 is input (button); rest are outputs
     __builtin_enable_interrupts();
     
     while(1)
     {
-	    // use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
-        _CP0_SET_COUNT(0);
-        LATAINV = 0b10000;
-        for(;_CP0_GET_COUNT()<(WAIT_TIME+1);)
+        read_byte = i2c_master_read(GPIO);
+        if (read_byte==GP7)
         {
-            while(!PORTBbits.RB4){;}
+            i2c_master_write(GPIO,GP0); // turn on GP0 - yellow LED
         }
     }   
 }
