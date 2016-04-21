@@ -2,11 +2,12 @@
 #define DAC_H
 #include <xc.h>
 
-#define VoutA   (char) 0
-#define VoutB   (char) 1
-#define SS1     LATBbits.LATB15
+#define A   (unsigned char) 0x00
+#define B   (unsigned char) 0x01
+#define SS1 LATBbits.LATB15
 
 void initSPI1();
-void setVoltage(char channel, char voltage);
-char SPI_IO(char write);
+void setVoltage(unsigned char channel, unsigned char voltage);
+unsigned char spi_io(unsigned char write);
+
 #endif

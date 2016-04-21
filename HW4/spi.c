@@ -20,7 +20,7 @@ void initSPI1()
     SPI1BUF;                  // clear the rx buffer
     SPI1BRG             = 0x176;// baud rate to 64kHz [SPI1BRG = (48000000/(2*64000))-1]
 }
-void setVoltage(char channel, char voltage)
+void setVoltage(unsigned char channel, unsigned char voltage)
 {
     char byte1, byte2;
     byte1 = (channel<<7)|(0x011<<4)|(voltage>>4);
