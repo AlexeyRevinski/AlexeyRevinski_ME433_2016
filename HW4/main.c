@@ -13,18 +13,11 @@ int main()
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 0;			// LED is off
     initExpander(GP7);          // Make GP7 (button) input, rest outputs
+    initSPI1();
     __builtin_enable_interrupts();
     
     while(1)
     {
-        char gpio = getExpander();
-        if ((gpio&GP7)==GP7)
-        {
-            setExpander(GP0,1);
-        }
-        else
-        {
-            setExpander(GP0,0);
-        }
+        setExpander(GP0,(char)((getExpander()&GP7)==GP7));  //Set LED on/off
     }   
 }
