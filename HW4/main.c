@@ -13,13 +13,19 @@ int main()
     TRISAbits.TRISA4 = 0;       // RA4 is output
     TRISBbits.TRISB4 = 1;       // RB4 is input
     LATAbits.LATA4 = 0;			// LED is off
-    initExpander(0x80);
-    i2c_master_write(OLAT,0b10101010);
-    setExpander(GP4,1);
+    initExpander(GP7);          // Make GP7 (button) input, rest outputs
     __builtin_enable_interrupts();
     
     while(1)
     {
-        ;
+        char gpio = getExpander();
+        if ((gpio&GP7)==GP7)
+        {
+            setExpander(GP0,1);
+        }
+        else
+        {
+            setExpander(GP0,0);
+        }
     }   
 }

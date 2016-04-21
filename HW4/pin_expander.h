@@ -18,5 +18,5 @@
 
 void initExpander(char IO_dir);
 void setExpander(char pin, char level);
-char getExpander(char pin);
+char getExpander();
 #endif

@@ -20,7 +20,7 @@ void setExpander(char pin, char level)
     }
     i2c_master_write(OLAT,write_byte);
 }
-char getExpander(char pin)
+char getExpander()
 {
-    ;
+    return i2c_master_read(GPIO);
 }
