@@ -19,5 +19,7 @@ int main()
     while(1)
     {
         setExpander(GP0,(char)((getExpander()&GP7)==GP7));  //Set LED on/off
+        
+        
     }   
 }

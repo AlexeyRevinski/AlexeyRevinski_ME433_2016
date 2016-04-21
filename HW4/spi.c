@@ -22,7 +22,13 @@ void initSPI1()
 }
 void setVoltage(char channel, char voltage)
 {
-    ;
+    char byte1, byte2;
+    byte1 = (channel<<7)|(0x011<<4)|(voltage>>4);
+    byte2 = voltage<<4;
+    SS1 = 0;
+    spi_io(byte1);
+    spi_io(byte2);
+    SS1 = 1;
 }
 
 unsigned char spi_io(unsigned char buf) {
