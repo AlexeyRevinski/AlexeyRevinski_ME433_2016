@@ -3,7 +3,6 @@
 
 int main()
 {
-    char read_byte = 0x00;
     // PIC32 Setup
     __builtin_disable_interrupts();
     __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
