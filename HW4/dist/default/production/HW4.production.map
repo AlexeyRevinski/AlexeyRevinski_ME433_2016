@@ -1001,9 +1001,9 @@ END GROUP
 
 .debug_line     0x00000000      0x695
  *(.debug_line)
- .debug_line    0x00000000       0xd9 build/default/production/main.o
- .debug_line    0x000000d9       0xe6 build/default/production/pin_expander.o
- .debug_line    0x000001bf       0xf2 build/default/production/spi.o
+ .debug_line    0x00000000       0xda build/default/production/main.o
+ .debug_line    0x000000da       0xe6 build/default/production/pin_expander.o
+ .debug_line    0x000001c0       0xf1 build/default/production/spi.o
  .debug_line    0x000002b1      0x116 build/default/production/i2c_master.o
  .debug_line    0x000003c7       0x97 c:/program files (x86)/microchip/xc32/v1.40/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-bootstrap-exception-handler.o)
  .debug_line    0x0000045e       0x84 c:/program files (x86)/microchip/xc32/v1.40/bin/bin/../../lib/gcc/pic32mx/4.8.3/../../../../pic32mx/lib\libpic32.a(default-on-reset.o)
@@ -1485,16 +1485,16 @@ LOAD data_init
                 0x9d00023c                i2c_master_recv
                 0x9d000294                i2c_master_ack
                 0x9d000304                i2c_master_stop
- .text          0x9d000350      0x224 build/default/production/spi.o
+ .text          0x9d000350      0x214 build/default/production/spi.o
                 0x9d000350                initSPI1
-                0x9d000468                setVoltage
-                0x9d00051c                spi_io
- .text          0x9d000574      0x148 build/default/production/pin_expander.o
-                0x9d000574                initExpander
-                0x9d0005e0                setExpander
-                0x9d000688                getExpander
- .text          0x9d0006bc       0xe8 build/default/production/main.o
-                0x9d0006bc                main
+                0x9d000458                setVoltage
+                0x9d00050c                spi_io
+ .text          0x9d000564      0x148 build/default/production/pin_expander.o
+                0x9d000564                initExpander
+                0x9d0005d0                setExpander
+                0x9d000678                getExpander
+ .text          0x9d0006ac       0xf8 build/default/production/main.o
+                0x9d0006ac                main
 
 .text.general_exception
                 0x9d0007a4       0xdc
