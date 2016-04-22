@@ -6,6 +6,7 @@
 #include "pin_expander.h"
 #include "i2c_master.h"
 #include "spi.h"
+#include <math.h>
 
 
 // DEVCFG0
