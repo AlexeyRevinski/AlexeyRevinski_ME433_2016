@@ -16,7 +16,7 @@ void initSPI1()
     SPI1CONbits.SMP     = 1;  // No input from MCP4902 - shouldn't matter
     SPI1STATbits.SPIROV = 0;  // clear the overflow bit
     SPI1BUF;                  // clear the rx buffer
-    SPI1BRG             = 0x2;// baud rate to 64kHz [SPI1BRG = (48000000/(2*64000))-1]
+    SPI1BRG             = 0x1;// baud rate to 12MHz [SPI1BRG = (48000000/(2*12000000))-1 = 1]
     SPI1CONbits.ON      = 1;  // turn on spi 1
 }
 void setVoltage(unsigned char channel, unsigned char voltage)
