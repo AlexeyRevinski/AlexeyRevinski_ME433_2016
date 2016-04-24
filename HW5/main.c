@@ -1,7 +1,4 @@
 #include    "PIC32_config.h"
-#define     WHOAMI_ADDR (char)  0x0F     // 0b00001111
-#define     WHOAMI_VAL  (char)  0x69     // 0b1101001
-#define     IMU_ADDR    (char)  0x6B     // 0b1101011(R/W)
 int main()
 {
     char whoami_check = 0;
@@ -17,7 +14,7 @@ int main()
     i2c_master_setup();
     __builtin_enable_interrupts();
     
-    whoami_check = i2c_master_read(IMU_ADDR,WHOAMI_ADDR);
+    whoami_check = i2c_master_read(IMU_ADDR,WHO_AM_I);
     if (whoami_check == WHOAMI_VAL)
     {
         LATAbits.LATA4 = 1;

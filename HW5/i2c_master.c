@@ -15,6 +15,19 @@ char i2c_master_read(char device, char reg_addr)
     return read_master;
 }
 
+void i2c_master_read_all(char device,char start_reg,char numval,unsigned char* array)
+{
+    char read_master;
+    i2c_master_start();
+    i2c_master_send((device << 1) | 0); // writing
+    i2c_master_send(start_reg);
+    i2c_master_restart();               // send a RESTART to read
+    i2c_master_send((device << 1) | 1); // reading
+    read_master = i2c_master_recv();    // receive a byte from the bus
+    i2c_master_ack(1);
+    i2c_master_stop();
+}
+
 void i2c_master_write(char device, char reg_addr, char byte)
 {
     i2c_master_start();
@@ -29,6 +42,9 @@ void i2c_master_setup(void) {
   ANSELBbits.ANSB3 = 0;             // I2C2 analog off;
   I2C2BRG = 233; // for 100kHz;     // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2 
   I2C2CONbits.ON = 1;               // turn on the I2C2 module
+  i2c_master_write(IMU_ADDR,CTRL1_XL,1);    // Setup the XL register
+  i2c_master_write(IMU_ADDR,CTRL2_G,1);     // Setup the G register
+  i2c_master_write(IMU_ADDR,CTRL3_C,1);     // Setup the C register
 }
 
 // Start a transmission on the I2C bus
