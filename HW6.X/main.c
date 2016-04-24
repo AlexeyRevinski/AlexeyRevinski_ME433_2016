@@ -14,6 +14,8 @@ int main()
     LATAbits.LATA4 = 0;			// LED is off
     i2c_master_setup();
     tim2_setup();
+    oc1_setup();
+    oc2_setup();
     __builtin_enable_interrupts();
     
     whoami_check = i2c_master_read(IMU_ADDR,WHO_AM_I);

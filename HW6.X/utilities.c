@@ -19,7 +19,8 @@ void tim2_setup(void)
 
 void oc1_setup(void)
 {
-    OC1CONbits.OCM		= 0b110;		// PWM mode without fault pin; other OC1CON bits are defaults
+    RPA0Rbits.RPA0R     = 0x05;       // RA0 - OC1
+    OC1CONbits.OCM		= 0x06;         // PWM mode without fault pin; other OC1CON bits are defaults
 	OC1CONbits.OCTSEL	= 0;			// use Timer 2
 	OC1RS				= ((PER2+1)/2);	// duty cycle = OC1RS/(PR2+1) = 50%
 	OC1R				= ((PER2+1)/2);	// initialize before turning OC1 on
@@ -28,7 +29,8 @@ void oc1_setup(void)
 
 void oc2_setup(void)
 {
-    OC2CONbits.OCM		= 0b110;		// PWM mode without fault pin; other OC2CON bits are defaults
+    RPA1Rbits.RPA1R     = 0x05;         // RA1 - OC2
+    OC2CONbits.OCM		= 0x06;         // PWM mode without fault pin; other OC2CON bits are defaults
 	OC2CONbits.OCTSEL	= 0;			// use Timer 2
 	OC2RS				= ((PER2+1)/2);	// duty cycle = OC2RS/(PR2+1) = 50%
 	OC2R				= ((PER2+1)/2);	// initialize before turning OC2 on
