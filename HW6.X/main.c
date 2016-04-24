@@ -24,6 +24,8 @@ int main()
     LATAbits.LATA4 = 1;
     while(1)
     {
-        ;
-    }   
+        _CP0_SET_COUNT(0);
+        LATAbits.LATA4 = !LATAbits.LATA4;
+        while(_CP0_GET_COUNT()<UPDATER){;}
+    }        
 }
