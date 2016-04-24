@@ -6,7 +6,6 @@
 #include "i2c_master.h"
 #include <math.h>
 
-
 // DEVCFG0
 #pragma config DEBUG 		= 0b10	// no debugging
 #pragma config JTAGEN 		= 0b0 	// no jtag
