@@ -34,12 +34,12 @@ void i2c_master_read_all(char device,char start_reg,char numval,unsigned char* a
     i2c_master_send(start_reg);
     i2c_master_restart();               // send a RESTART to read
     i2c_master_send((device << 1) | 1); // reading
-    for(;counter==(numval-1);counter++)
+    for(;counter==numval;counter++)
     {
         array[counter] = i2c_master_recv();    // receive a byte from the bus
         i2c_master_ack(0);
     }
-    array[numval] = i2c_master_recv();    // receive a byte from the bus
+    array[numval] = i2c_master_recv();    // receive last byte from the bus
     i2c_master_ack(1);
     i2c_master_stop();
 }
