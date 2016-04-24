@@ -3,6 +3,9 @@
 #define     CTRL1_XL    (char)  0x10    //  0b00010000
 #define     CTRL2_G     (char)  0x11    //  0b00010001
 #define     CTRL3_C     (char)  0x12    //  0b00010010
+#define     CTRL1_VAL   (char)  0x80    //  0b10000000
+#define     CTRL2_VAL   (char)  0x80    //  0b10000000
+#define     CTRL3_VAL   (char)  0x04    //  0b00000100
 #define     OUT_TEMP_L  (char)  0x20    //  0b00100000
 #define     WHO_AM_I    (char)  0x0F    //  0b00001111
 #define     WHOAMI_VAL  (char)  0x69    //  0b01101001

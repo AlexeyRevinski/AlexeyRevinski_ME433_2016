@@ -1438,10 +1438,10 @@ LOAD data_init
 
 .text           0x9d000000      0x590
  .text          0x9d000000      0x4ac build/default/production/i2c_master.o
-                0x9d000000                i2c_master_read
-                0x9d0000b8                i2c_master_read_all
-                0x9d000174                i2c_master_write
-                0x9d0001f8                i2c_master_setup
+                0x9d000000                i2c_master_setup
+                0x9d0000a4                i2c_master_read
+                0x9d00015c                i2c_master_read_all
+                0x9d000218                i2c_master_write
                 0x9d00029c                i2c_master_start
                 0x9d0002e8                i2c_master_restart
                 0x9d000334                i2c_master_send
