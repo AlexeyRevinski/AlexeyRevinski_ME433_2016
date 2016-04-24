@@ -1,7 +1,8 @@
 #include    "PIC32_config.h"
 int main()
 {
-    char whoami_check = 0;
+    char            whoami_check = 0;
+    unsigned char   data[14];
     // PIC32 Setup
     __builtin_disable_interrupts();
     __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
@@ -17,9 +18,10 @@ int main()
     whoami_check = i2c_master_read(IMU_ADDR,WHO_AM_I);
     if (whoami_check == WHOAMI_VAL)
     {
-        LATAbits.LATA4 = 1;
+        ;//LATAbits.LATA4 = 1;
     }
-    
+    i2c_master_read_all(IMU_ADDR,OUT_TEMP_L,14,data);
+    LATAbits.LATA4 = 1;
     while(1)
     {
         ;

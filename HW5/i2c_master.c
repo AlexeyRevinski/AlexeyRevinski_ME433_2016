@@ -28,13 +28,18 @@ char i2c_master_read(char device, char reg_addr)
 
 void i2c_master_read_all(char device,char start_reg,char numval,unsigned char* array)
 {
-    char read_master;
+    char counter=0;
     i2c_master_start();
     i2c_master_send((device << 1) | 0); // writing
     i2c_master_send(start_reg);
     i2c_master_restart();               // send a RESTART to read
     i2c_master_send((device << 1) | 1); // reading
-    read_master = i2c_master_recv();    // receive a byte from the bus
+    for(;counter==(numval-1);counter++)
+    {
+        array[counter] = i2c_master_recv();    // receive a byte from the bus
+        i2c_master_ack(0);
+    }
+    array[numval] = i2c_master_recv();    // receive a byte from the bus
     i2c_master_ack(1);
     i2c_master_stop();
 }
