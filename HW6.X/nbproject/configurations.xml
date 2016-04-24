@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>PIC32_config.h</itemPath>
       <itemPath>i2c_master.h</itemPath>
+      <itemPath>utilities.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,6 +17,7 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>i2c_master.c</itemPath>
+      <itemPath>utilities.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
