@@ -3,9 +3,8 @@
 int main()
 {
     char            whoami_check = 0;
-    unsigned char   data[14] = {0xE8,0x03,0xE8,0x03,0xE8,0x03,0xE8,0x03,0xE8,0x03,0xE8,0x03,0xE8,0x03};
-    //unsigned char   data[14]  = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    short           output[7] = {0,0,0,0,0,0,0};
+    unsigned char   data[14];
+    short           output[7];
     int             oc1_new=0,oc2_new=0;
     // PIC32 Setup
     __builtin_disable_interrupts();
