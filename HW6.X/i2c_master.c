@@ -26,20 +26,46 @@ char i2c_master_read(char device, char reg_addr)
     return read_master;
 }
 
-void i2c_master_read_all(char device,char start_reg,char numval,unsigned char* array)
+void i2c_master_read_all(char device,char start_reg,int numval,unsigned char* array)
 {
-    char counter=0;
+    int counter=0;
     i2c_master_start();
     i2c_master_send((device << 1) | 0); // writing
     i2c_master_send(start_reg);
     i2c_master_restart();               // send a RESTART to read
     i2c_master_send((device << 1) | 1); // reading
-    for(;counter==numval;counter++)
+    array[0] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[1] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[2] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[3] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[4] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[5] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[6] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[7] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[8] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[9] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[10] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[11] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[12] = i2c_master_recv();
+    i2c_master_ack(0);
+    array[13] = i2c_master_recv();
+    /*for(counter=1;counter==numval;counter++)
     {
-        array[counter] = i2c_master_recv();    // receive a byte from the bus
         i2c_master_ack(0);
-    }
-    array[numval] = i2c_master_recv();    // receive last byte from the bus
+        array[counter] = i2c_master_recv();    // receive a byte from the bus
+    }*/
     i2c_master_ack(1);
     i2c_master_stop();
 }

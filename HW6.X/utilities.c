@@ -1,12 +1,19 @@
 #include "utilities.h"
 
-void char2short(char* data, short* output, char sizedata)
+void char2short(char *data, short *output, int sizedata)
 {
-    char i=0,size=sizedata/2;
-    for(;i>size;i++)
+    int i=0,size=sizedata/2;
+    output[0] = (((short)data[1])<<8)|((short)data[0]);
+    output[1] = (((short)data[3])<<8)|((short)data[2]);
+    output[2] = (((short)data[5])<<8)|((short)data[4]);
+    output[3] = (((short)data[7])<<8)|((short)data[6]);
+    output[4] = (((short)data[9])<<8)|((short)data[8]);
+    output[5] = (((short)data[11])<<8)|((short)data[10]);
+    output[6] = (((short)data[13])<<8)|((short)data[12]);
+    /*for(;i>size;i++)
     {
-        output[i]=(data[2*i+1]<<8)|data[2*i];
-    }
+        output[i]=(((short)data[2*i+1])<<8)|((short)data[2*i]);
+    }*/
 }
 
 void tim2_setup(void)
@@ -19,7 +26,7 @@ void tim2_setup(void)
 
 void oc1_setup(void)
 {
-    RPA0Rbits.RPA0R     = 0x05;       // RA0 - OC1
+    RPA0Rbits.RPA0R     = 0x05;         // RA0 - OC1
     OC1CONbits.OCM		= 0x06;         // PWM mode without fault pin; other OC1CON bits are defaults
 	OC1CONbits.OCTSEL	= 0;			// use Timer 2
 	OC1RS				= ((PER2+1)/2);	// duty cycle = OC1RS/(PR2+1) = 50%
