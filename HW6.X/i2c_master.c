@@ -34,38 +34,12 @@ void i2c_master_read_all(char device,char start_reg,int numval,unsigned char* ar
     i2c_master_send(start_reg);
     i2c_master_restart();               // send a RESTART to read
     i2c_master_send((device << 1) | 1); // reading
-    array[0] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[1] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[2] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[3] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[4] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[5] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[6] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[7] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[8] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[9] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[10] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[11] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[12] = i2c_master_recv();
-    i2c_master_ack(0);
-    array[13] = i2c_master_recv();
-    /*for(counter=1;counter==numval;counter++)
+    for(;counter<numval;counter++)
     {
-        i2c_master_ack(0);
         array[counter] = i2c_master_recv();    // receive a byte from the bus
-    }*/
+        i2c_master_ack(0);
+    }
+    array[numval] = i2c_master_recv();
     i2c_master_ack(1);
     i2c_master_stop();
 }

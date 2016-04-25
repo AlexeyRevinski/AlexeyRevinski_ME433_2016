@@ -3,7 +3,7 @@
 #define     CTRL1_XL    (char)  0x10    //  0b00010000
 #define     CTRL2_G     (char)  0x11    //  0b00010001
 #define     CTRL3_C     (char)  0x12    //  0b00010010
-#define     CTRL1_VAL   (char)  0x83    //  0b10000011
+#define     CTRL1_VAL   (char)  0x80    //  0b10000000
 #define     CTRL2_VAL   (char)  0x80    //  0b10000000
 #define     CTRL3_VAL   (char)  0x04    //  0b00000100
 #define     OUT_TEMP_L  (char)  0x20    //  0b00100000
