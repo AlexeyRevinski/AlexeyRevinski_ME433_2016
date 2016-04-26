@@ -32,8 +32,8 @@ int main()
         _CP0_SET_COUNT(0);
         i2c_master_read_all(IMU_ADDR,OUT_TEMP_L,14,data);
         char2short(data,output,14);
-        oc1_new = (PER2+1)/2+(output[6]/20);
-        oc2_new = (PER2+1)/2;
+        oc1_new = (PER2+1)/2+(output[4]/20);
+        oc2_new = (PER2+1)/2+(output[5]/20);
         if(oc1_new>(PER2+1)){oc1_new=(PER2+1);}
         if(oc2_new>(PER2+1)){oc2_new=(PER2+1);}
         OC1RS = oc1_new;
