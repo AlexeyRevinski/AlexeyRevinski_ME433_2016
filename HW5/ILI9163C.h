@@ -4,9 +4,6 @@
 #ifndef ILI9163C_H__
 #define ILI9163C_H__
 
-#define MARGIN 5
-#define BREAK  5
-
 // lookup table for all of the ascii characters
 static const char ASCII[96][5] = {
  {0x00, 0x00, 0x00, 0x00, 0x00} // 20  (space)
@@ -173,7 +170,8 @@ static unsigned char nGammaSet[15]= {0x09,0x16,0x2D,0x0D,0x13,0x15,0x40,0x48,0x5
 
 extern unsigned short txtcolor;
 extern unsigned short scrcolor;
-#define length    21
+
+#include "utilities.h"
 
 void setTxtColor(unsigned short color);
 void setScrColor(unsigned short color);
