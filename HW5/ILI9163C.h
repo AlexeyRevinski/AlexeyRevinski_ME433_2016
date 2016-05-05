@@ -171,6 +171,12 @@ static const char ASCII[96][5] = {
 static unsigned char pGammaSet[15]= {0x36,0x29,0x12,0x22,0x1C,0x15,0x42,0xB7,0x2F,0x13,0x12,0x0A,0x11,0x0B,0x06};
 static unsigned char nGammaSet[15]= {0x09,0x16,0x2D,0x0D,0x13,0x15,0x40,0x48,0x53,0x0C,0x1D,0x25,0x2E,0x34,0x39};
 
+extern unsigned short txtcolor;
+extern unsigned short scrcolor;
+#define length    21
+
+void setTxtColor(unsigned short color);
+void setScrColor(unsigned short color);
 unsigned char spi_io(unsigned char); // send and rx a byte over spi
 void LCD_command(unsigned char); // send a command to the LCD
 void LCD_data(unsigned char); // send data to the LCD
@@ -178,7 +184,7 @@ void LCD_data16(unsigned short); // send 16 bit data to the LCD
 void LCD_init(void); // send the initializations to the LCD
 void LCD_drawPixel(unsigned short, unsigned short, unsigned short); // set the x,y pixel to a color
 void LCD_drawChar(char xpos, char ypos, char ch);
-void LCD_drawString(char xpos, char ypos, char* str, char size);
+void LCD_drawString(char xpos, char ypos, char* str);
 void LCD_setAddr(unsigned short, unsigned short, unsigned short, unsigned short); // set the memory address you are writing to
 void LCD_clearScreen(unsigned short); // set the color of every pixel
 

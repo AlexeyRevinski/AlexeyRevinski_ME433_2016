@@ -16,25 +16,38 @@
 #include <xc.h>
 #include "ILI9163C.h"
 
-void LCD_drawString(char xpos, char ypos, char* str, char size)
+
+void setTxtColor(unsigned short color)
+{
+    txtcolor = color;
+}
+
+void setScrColor(unsigned short color)
+{
+    scrcolor = color;
+}
+
+void LCD_drawString(char xpos, char ypos, char* str)
 {
     int i = 0;
-    for (;i<size;i++)
+    for (;i<length;i++)
     {
+        if(str[i]=='\0'){break;};
         LCD_drawChar(xpos+i*6,ypos,str[i]);
     }
     
 }
 void LCD_drawChar(char xpos, char ypos, char ch)
 {
+    if(xpos>123||ypos>121){return;}
     int x=0,y=0;
     short color;
     for(;x<5;x++)
     {
         for(;y<8;y++)
         {
-            if(ASCII[ch-32][x]&(1<<y))  {color = 0xFFFF;}
-            else                        {color = 0x0000;}
+            if(ASCII[ch-32][x]&(1<<y))  {color = txtcolor;}
+            else                        {color = scrcolor;}
             LCD_drawPixel(xpos+x, ypos+y, color);
         }
         y = 0;

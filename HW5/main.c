@@ -2,14 +2,32 @@
 #include "ILI9163C.h"
 #include <stdio.h>
 
+void clearline(char* line);
+unsigned short txtcolor = WHITE;
+unsigned short scrcolor = BLACK;
 int main(void)
 {
-    char str[25];
-    sprintf(str,"Hello World 1337!");
+    int var = 1337;
+    char line[length];
+    clearline(line);
     SPI1_init();
     LCD_init();
-    LCD_clearScreen(0x0000);
-    LCD_drawString(20,20,str,9);
-    //LCD_drawChar(20,20,str[1]);
+    setTxtColor(GREEN);
+    setScrColor(BLACK);
+    LCD_clearScreen(scrcolor);
+    sprintf(line,"Hello World %d!",var);
+    LCD_drawString(28,32,line);
+    clearline(line);
+    setTxtColor(RED);
+    LCD_drawString(5,100,"\"!\" outside screen!");
     while(1){;}
+}
+
+void clearline(char* line)
+{
+    int i=0;
+    for(;i<length+1;i++)
+    {
+        line[i] = ' ';
+    }
 }
