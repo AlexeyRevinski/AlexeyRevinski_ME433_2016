@@ -11,13 +11,11 @@ unsigned short scrcolor = BLACK;
 
 int main(void)
 {
-    int             var = 1337;
+    int             var = 1337,c=0;
     char            line[length];
-    char            whoami_check = 0;
     unsigned char   data[14];
     short           output[7];
-    int             oc1_new=0,oc2_new=0,c;
-    // Setup
+    
     __builtin_disable_interrupts();
      __builtin_mtc0(_CP0_CONFIG,_CP0_CONFIG_SELECT,0xa4210583);
     BMXCONbits.BMXWSDRM = 0x0;  // 0 data RAM access wait states
@@ -35,28 +33,13 @@ int main(void)
     setScrColor(BLACK);
     clearline(line);
     LCD_clearScreen(scrcolor);
-    LCD_drawString(MARGIN,5,"Gyro X: ");
+    LCD_drawString(MARGIN,5 ,"Gyro X: ");
     LCD_drawString(MARGIN,20,"Gyro Y: ");
     LCD_drawString(MARGIN,35,"Gyro Z: ");
     LCD_drawString(MARGIN,50,"Accl X: ");
     LCD_drawString(MARGIN,65,"Accl Y: ");
     LCD_drawString(MARGIN,80,"Accl Z: ");
     LCD_drawString(MARGIN,95,"Temp  : ");
-    
-    /*
-    sprintf(line,"Hello World %d!",var);
-    LCD_drawString(28,32,line);
-    clearline(line);
-    setTxtColor(RED);
-    LCD_drawString(5,100,"\"!\" outside screen!");*/
-    
-    
-    /*
-    whoami_check = i2c_master_read(IMU_ADDR,WHO_AM_I);
-    if (whoami_check == WHOAMI_VAL)
-    {
-        LATAbits.LATA4 = 1;
-    }*/
     
     while(1)
     {
