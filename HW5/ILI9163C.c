@@ -16,6 +16,25 @@
 #include <xc.h>
 #include "ILI9163C.h"
 
+void LCD_drawChar(char ch)
+{
+    int x=0,y=0;
+    short color;
+    for(;x<6;x++)
+    {
+        for(;y<8;y++)
+        {
+            if(ASCII[ch-32][x]&(1<<y))
+            {
+                color = 0xFFFF;
+            }
+            else color = 0x0000;
+            LCD_drawPixel(MARGIN+x, BREAK+y, color);
+        }
+        y = 0;
+    }
+}
+
 void SPI1_init() {
 	SDI1Rbits.SDI1R = 0b0100; // B8 is SDI1
     RPA1Rbits.RPA1R = 0b0011; // A1 is SDO1

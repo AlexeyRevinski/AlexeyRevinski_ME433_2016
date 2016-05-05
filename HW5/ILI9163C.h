@@ -4,6 +4,9 @@
 #ifndef ILI9163C_H__
 #define ILI9163C_H__
 
+#define MARGIN 5
+#define BREAK  5
+
 // lookup table for all of the ascii characters
 static const char ASCII[96][5] = {
  {0x00, 0x00, 0x00, 0x00, 0x00} // 20  (space)
@@ -174,6 +177,7 @@ void LCD_data(unsigned char); // send data to the LCD
 void LCD_data16(unsigned short); // send 16 bit data to the LCD
 void LCD_init(void); // send the initializations to the LCD
 void LCD_drawPixel(unsigned short, unsigned short, unsigned short); // set the x,y pixel to a color
+void LCD_drawChar(char ch);
 void LCD_setAddr(unsigned short, unsigned short, unsigned short, unsigned short); // set the memory address you are writing to
 void LCD_clearScreen(unsigned short); // set the color of every pixel
 
