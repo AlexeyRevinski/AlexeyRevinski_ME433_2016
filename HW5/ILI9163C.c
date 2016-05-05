@@ -16,11 +16,20 @@
 #include <xc.h>
 #include "ILI9163C.h"
 
+void LCD_drawString(char xpos, char ypos, char* str, char size)
+{
+    int i = 0;
+    for (;i<size;i++)
+    {
+        LCD_drawChar(xpos+i*6,ypos,str[i]);
+    }
+    
+}
 void LCD_drawChar(char xpos, char ypos, char ch)
 {
     int x=0,y=0;
     short color;
-    for(;x<6;x++)
+    for(;x<5;x++)
     {
         for(;y<8;y++)
         {
