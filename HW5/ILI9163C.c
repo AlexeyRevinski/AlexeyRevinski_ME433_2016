@@ -46,7 +46,7 @@ void LCD_drawChar(char xpos, char ypos, char ch)
     {
         for(;y<8;y++)
         {
-            if(ASCII[ch-32][x]&(1<<y))  {color = txtcolor;}
+            if(ASCII[ch-0x20][x]&(1<<y))  {color = txtcolor;}
             else                        {color = scrcolor;}
             LCD_drawPixel(xpos+x, ypos+y, color);
         }
