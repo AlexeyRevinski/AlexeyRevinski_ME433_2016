@@ -16,7 +16,7 @@
 #include <xc.h>
 #include "ILI9163C.h"
 
-void LCD_drawChar(char ch)
+void LCD_drawChar(char xpos, char ypos, char ch)
 {
     int x=0,y=0;
     short color;
@@ -24,12 +24,9 @@ void LCD_drawChar(char ch)
     {
         for(;y<8;y++)
         {
-            if(ASCII[ch-32][x]&(1<<y))
-            {
-                color = 0xFFFF;
-            }
-            else color = 0x0000;
-            LCD_drawPixel(MARGIN+x, BREAK+y, color);
+            if(ASCII[ch-32][x]&(1<<y))  {color = 0xFFFF;}
+            else                        {color = 0x0000;}
+            LCD_drawPixel(xpos+x, ypos+y, color);
         }
         y = 0;
     }
