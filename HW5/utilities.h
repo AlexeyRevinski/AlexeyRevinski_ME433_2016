@@ -6,6 +6,6 @@
 #define PER2        2999
 #define UPDATER     PIC_FREQ/SAM_FREQ
 #define length      21
-void char2short(char *data, short *output, int sizedata);
+void char2short(unsigned char *data, short *output, int sizedata);
 void clearline(char* line);
 #endif
