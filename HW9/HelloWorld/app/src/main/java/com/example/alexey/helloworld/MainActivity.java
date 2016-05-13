@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         myControl = (SeekBar) findViewById(R.id.seek1);
 
         myTextView = (TextView) findViewById(R.id.textView01);
-        myTextView.setText("Enter whatever you Like!");
+        myTextView.setText("Move the slider to change value");
+        setMyControlListener();
     }
 
     private void setMyControlListener() {
