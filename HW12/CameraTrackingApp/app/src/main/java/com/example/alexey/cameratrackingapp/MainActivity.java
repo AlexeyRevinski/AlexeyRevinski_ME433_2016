@@ -88,9 +88,9 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             int[] pixels1 = new int[bmp.getWidth()];
             int[] pixels2 = new int[bmp.getWidth()];
             int[] pixels3 = new int[bmp.getWidth()];
-            int startY1 = 15; // which row in the bitmap to read
+            int startY1 = 100; // which row in the bitmap to read
             int startY2 = 200;
-            int startY3 = 400;
+            int startY3 = 300;
             // only look at one row in the image
             bmp.getPixels(pixels1, 0, bmp.getWidth(), 0, startY1, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
             bmp.getPixels(pixels2, 0, bmp.getWidth(), 0, startY2, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
@@ -176,9 +176,9 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             canvas.drawCircle(COM3, startY3, 5, paint1);
 
             // also write the value as text
-            canvas.drawText("COM = " + COM1, 10, 50, paint1);
-            canvas.drawText("COM = " + COM2, 10, 250, paint1);
-            canvas.drawText("COM = " + COM3, 10, 450, paint1);
+            canvas.drawText("COM = " + COM1, 10, startY1, paint1);
+            canvas.drawText("COM = " + COM2, 10, startY2, paint1);
+            canvas.drawText("COM = " + COM3, 10, startY3, paint1);
             c.drawBitmap(bmp, 0, 0, null);
             mSurfaceHolder.unlockCanvasAndPost(c);
 
