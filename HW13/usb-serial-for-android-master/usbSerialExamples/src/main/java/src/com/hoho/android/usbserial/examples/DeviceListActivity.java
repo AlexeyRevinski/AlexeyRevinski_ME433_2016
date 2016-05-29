@@ -170,6 +170,7 @@ public class DeviceListActivity extends Activity {
 
                 final List<UsbSerialDriver> drivers =
                         /*UsbSerialProber.getDefaultProber().findAllDrivers(mUsbManager);*/
+                        prober.findAllDrivers(mUsbManager);
 
                 final List<UsbSerialPort> result = new ArrayList<UsbSerialPort>();
                 for (final UsbSerialDriver driver : drivers) {
@@ -206,7 +207,7 @@ public class DeviceListActivity extends Activity {
     }
 
     private void showConsoleActivity(UsbSerialPort port) {
-        SerialConsoleActivity.show(this, port);
+        com.hoho.android.usbserial.examples.SerialConsoleActivity.show(this, port);
     }
 
 }
