@@ -55,9 +55,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "app.h"
 
-int ii=0,pos=0,txFlag=0,qq=0;
-char* rx;
-char* tx;
+char rx[100],tx[100];
+int ii,pos,txFlag,qq;
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
@@ -417,6 +416,7 @@ void APP_Tasks ( void )
             if(appData.isConfigured)
             {
                 /* Schedule the first read from CDC function driver */
+
                 appData.state = APP_STATE_CHECK_CDC_READ;
                 appData.isReadComplete = false;
                 USB_DEVICE_CDC_Read (appData.cdcInstance, &(appData.readTransferHandle),
@@ -463,18 +463,18 @@ void APP_Tasks ( void )
             {
                 break;
             }
-
+            
             /* Check if a character was received on the UART */
-            /*
-            if(DRV_USART_Read(appData.usartHandle, appData.uartReceivedData, 1) > 0)
-            {
-                LATAbits.LATA4 = !LATAbits.LATA4;		// Toggle LED
-                USB_DEVICE_CDC_Write(0, &appData.writeTransferHandle,
-                        appData.uartReceivedData, 1,
-                        USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
 
-            }
-            */
+            //if(DRV_USART_Read(appData.usartHandle, appData.uartReceivedData, 1) > 0)
+            //{
+                /* We have received data on the UART */
+
+               // USB_DEVICE_CDC_Write(0, &appData.writeTransferHandle,
+                       // appData.uartReceivedData, 1,
+                        //USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
+
+            //}
             if (txFlag == 1) {
                 char len = sprintf(tx,"qq = %d\r\n",qq);
                 for (ii = 0;ii<len;ii++) {
