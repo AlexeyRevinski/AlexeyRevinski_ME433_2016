@@ -116,7 +116,8 @@ public class SerialConsoleActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
                     sPort.setDTR(isChecked);
-                }catch (IOException x){}
+                } catch (IOException x) {
+                }
             }
         });
 
@@ -125,7 +126,8 @@ public class SerialConsoleActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 try {
                     sPort.setRTS(isChecked);
-                }catch (IOException x){}
+                } catch (IOException x) {
+                }
             }
         });
 
@@ -232,7 +234,8 @@ public class SerialConsoleActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                myTextView.setText("PIC32 says: "+progress);
+                final String message = "PIC32 says: " + progress + "\n\n";
+                myTextView.setText(message);
             }
 
             @Override
@@ -241,7 +244,6 @@ public class SerialConsoleActivity extends Activity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
     }

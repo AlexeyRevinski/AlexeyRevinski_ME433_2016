@@ -27,12 +27,80 @@
         <SurfaceView
             android:id="@+id/surfaceview"
             android:layout_width="640px"
-            android:layout_height="480px" />
-
+            android:layout_height="480px"
+            android:layout_marginLeft="-10dp"
+            android:layout_margin="0dp" />
         <TextureView
             android:id="@+id/textureview"
-            android:layout_width="640px"
-            android:layout_height="480px" />
+            android:layout_width="1px"
+            android:layout_height="1px" />
+
+        <SeekBar
+            android:id="@+id/seek1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:progress="15"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="50dp"
+            android:max="255"
+            android:layout_marginTop="-5dp" />
+        <TextView
+            android:id="@+id/textView01"
+            android:text="50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp" />
+        <SeekBar
+            android:id="@+id/seek2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:progress="63"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:max="255" />
+        <TextView
+            android:id="@+id/textView02"
+            android:text="50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp" />
+        <SeekBar
+            android:id="@+id/seek3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:progress="39"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:max="255" />
+        <TextView
+            android:id="@+id/textView03"
+            android:text="50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp" />
+        <SeekBar
+            android:id="@+id/seek4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:progress="255"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:max="255"
+            android:layout_marginBottom="-50dp" />
+        <TextView
+            android:id="@+id/textView04"
+            android:text="50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-50dp" />
 
     </LinearLayout>
 </RelativeLayout>

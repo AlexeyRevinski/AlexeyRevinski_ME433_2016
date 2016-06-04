@@ -1,5 +1,6 @@
 package com.example.alexey.cameratrackingapp;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,10 +17,13 @@ import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import java.io.IOException;
 import static android.graphics.Color.blue;
 import static android.graphics.Color.green;
 import static android.graphics.Color.red;
+import static android.graphics.Color.rgb;
 
 public class MainActivity extends Activity implements TextureView.SurfaceTextureListener {
     private Camera mCamera;
@@ -30,6 +34,15 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
     private Canvas canvas = new Canvas(bmp);
     private Paint paint1 = new Paint();
     private TextView mTextView;
+    private SeekBar myControl1;
+    private SeekBar myControl2;
+    private SeekBar myControl3;
+    private SeekBar myControl4;
+    private TextView myTextView1;
+    private TextView myTextView2;
+    private TextView myTextView3;
+    private TextView myTextView4;
+
 
     static long prevtime = 0; // for FPS calculation
 
@@ -45,17 +58,39 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         mTextureView.setSurfaceTextureListener(this);
 
         mTextView = (TextView) findViewById(R.id.cameraStatus);
-
+        //
+        myControl1 = (SeekBar) findViewById(R.id.seek1);
+        myTextView1 = (TextView) findViewById(R.id.textView01);
+        myTextView1.setText("R: "+myControl1.getProgress());
+        //
+        myControl2 = (SeekBar) findViewById(R.id.seek2);
+        myTextView2 = (TextView) findViewById(R.id.textView02);
+        myTextView2.setText("G: "+myControl2.getProgress());
+        //
+        myControl3 = (SeekBar) findViewById(R.id.seek3);
+        myTextView3 = (TextView) findViewById(R.id.textView03);
+        myTextView3.setText("B: "+myControl3.getProgress());
+        //
+        myControl4 = (SeekBar) findViewById(R.id.seek4);
+        myTextView4= (TextView) findViewById(R.id.textView04);
+        myTextView4.setText("D: "+myControl4.getProgress());
+        //
         paint1.setColor(0xffff0000); // red
         paint1.setTextSize(24);
+        setMyControlListener1();
+        setMyControlListener2();
+        setMyControlListener3();
+        setMyControlListener4();
     }
 
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mCamera = Camera.open();
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setPreviewSize(640, 480);
-        parameters.setColorEffect(Camera.Parameters.EFFECT_MONO); // black and white
+        //parameters.setColorEffect(Camera.Parameters.EFFECT_MONO); // black and white
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_INFINITY); // no autofocusing
+        parameters.setAutoWhiteBalanceLock(true);
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         mCamera.setParameters(parameters);
         mCamera.setDisplayOrientation(90); // rotate to portrait mode
 
@@ -84,24 +119,29 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
         final Canvas c = mSurfaceHolder.lockCanvas();
         if (c != null) {
-
+            int rthresh = myControl1.getProgress();
+            int gthresh = myControl2.getProgress();
+            int bthresh = myControl3.getProgress();
+            int tthresh = myControl4.getProgress();
             int[] pixels1 = new int[bmp.getWidth()];
             int[] pixels2 = new int[bmp.getWidth()];
             int[] pixels3 = new int[bmp.getWidth()];
-            int startY1 = 100; // which row in the bitmap to read
-            int startY2 = 200;
-            int startY3 = 300;
+            int startY1 = 120; // which row in the bitmap to read
+            int startY2 = 240;
+            int startY3 = 360;
             // only look at one row in the image
             bmp.getPixels(pixels1, 0, bmp.getWidth(), 0, startY1, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
             bmp.getPixels(pixels2, 0, bmp.getWidth(), 0, startY2, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
             bmp.getPixels(pixels3, 0, bmp.getWidth(), 0, startY3, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
-
             // pixels[] is the RGBA data (in black an white).
             // instead of doing center of mass on it, decide if each pixel is dark enough to consider black or white
             // then do a center of mass on the thresholded array
             int[] thresholdedPixels1 = new int[bmp.getWidth()];
             int[] thresholdedPixels2 = new int[bmp.getWidth()];
             int[] thresholdedPixels3 = new int[bmp.getWidth()];
+            int[] thresholdedColors1 = new int[bmp.getWidth()];
+            int[] thresholdedColors2 = new int[bmp.getWidth()];
+            int[] thresholdedColors3 = new int[bmp.getWidth()];
             int wbTotal1 = 0; // total mass
             int wbTotal2 = 0; // total mass
             int wbTotal3 = 0; // total mass
@@ -112,37 +152,42 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
                 // sum the red, green and blue, subtract from 255 to get the darkness of the pixel.
                 // if it is greater than some value (600 here), consider it black
                 // play with the 600 value if you are having issues reliably seeing the line
-                if (255*3-(red(pixels1[i])+green(pixels1[i])+blue(pixels1[i])) > 600) {
+                //if (((red(pixels1[i])>rthresh)&&(blue(pixels1[i])<bthresh)&&(green(pixels1[i])<gthresh))) {
+                if ((red(pixels1[i])>rthresh)&&((255-(green(pixels1[i])-red(pixels1[i])) > tthresh))){
                     thresholdedPixels1[i] = 255*3;
+                    thresholdedColors1[i] = rgb(255,0,0);
                 }
                 else {
                     thresholdedPixels1[i] = 0;
+                    thresholdedColors1[i] = rgb(0,255,0);
                 }
                 wbTotal1 = wbTotal1 + thresholdedPixels1[i];
                 wbCOM1 = wbCOM1 + thresholdedPixels1[i]*i;
-            }
-            for (int i = 0; i < bmp.getWidth(); i++) {
                 // sum the red, green and blue, subtract from 255 to get the darkness of the pixel.
                 // if it is greater than some value (600 here), consider it black
                 // play with the 600 value if you are having issues reliably seeing the line
-                if (255*3-(red(pixels2[i])+green(pixels2[i])+blue(pixels2[i])) > 600) {
+                //if ((red(pixels2[i])>rthresh)&&(blue(pixels2[i])<bthresh)&&(green(pixels2[i])<gthresh)) {
+                if ((red(pixels2[i])>rthresh)&&((255-(green(pixels2[i])-red(pixels2[i])) > tthresh))){
                     thresholdedPixels2[i] = 255*3;
+                    thresholdedColors2[i] = rgb(255,0,0);
                 }
                 else {
                     thresholdedPixels2[i] = 0;
+                    thresholdedColors2[i] = rgb(0,255,0);
                 }
                 wbTotal2 = wbTotal2 + thresholdedPixels2[i];
                 wbCOM2 = wbCOM2 + thresholdedPixels2[i]*i;
-            }
-            for (int i = 0; i < bmp.getWidth(); i++) {
                 // sum the red, green and blue, subtract from 255 to get the darkness of the pixel.
                 // if it is greater than some value (600 here), consider it black
                 // play with the 600 value if you are having issues reliably seeing the line
-                if (255*3-(red(pixels3[i])+green(pixels3[i])+blue(pixels3[i])) > 600) {
+                //if ((red(pixels3[i])>rthresh)&&(blue(pixels3[i])<bthresh)&&(green(pixels3[i])<gthresh)) {
+                if ((red(pixels3[i])>rthresh)&&((255-(green(pixels3[i])-red(pixels3[i])) > tthresh))){
                     thresholdedPixels3[i] = 255*3;
+                    thresholdedColors3[i] = rgb(255, 0, 0);
                 }
                 else {
                     thresholdedPixels3[i] = 0;
+                    thresholdedColors3[i] = rgb(0, 255, 0);
                 }
                 wbTotal3 = wbTotal3 + thresholdedPixels3[i];
                 wbCOM3 = wbCOM3 + thresholdedPixels3[i]*i;
@@ -174,7 +219,9 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             canvas.drawCircle(COM1, startY1, 5, paint1);
             canvas.drawCircle(COM2, startY2, 5, paint1);
             canvas.drawCircle(COM3, startY3, 5, paint1);
-
+            bmp.setPixels(thresholdedColors1, 0, bmp.getWidth(), 0, startY1, bmp.getWidth(), 1);
+            bmp.setPixels(thresholdedColors2, 0, bmp.getWidth(), 0, startY2, bmp.getWidth(), 1);
+            bmp.setPixels(thresholdedColors3, 0, bmp.getWidth(), 0, startY3, bmp.getWidth(), 1);
             // also write the value as text
             canvas.drawText("COM = " + COM1, 10, startY1, paint1);
             canvas.drawText("COM = " + COM2, 10, startY2, paint1);
@@ -188,5 +235,89 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             mTextView.setText("FPS " + 1000/diff);
             prevtime = nowtime;
         }
+    }
+    private void setMyControlListener1() {
+        myControl1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+            int progressChanged = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                myTextView1.setText("R: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+    private void setMyControlListener2() {
+        myControl2.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+            int progressChanged = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                myTextView2.setText("G: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+    private void setMyControlListener3() {
+        myControl3.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+            int progressChanged = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                myTextView3.setText("B: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+    private void setMyControlListener4() {
+        myControl4.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+            int progressChanged = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressChanged = progress;
+                myTextView4.setText("D: "+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 }
