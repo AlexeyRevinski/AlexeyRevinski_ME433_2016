@@ -82,7 +82,6 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         setMyControlListener3();
         btnSwitch = (ImageButton)findViewById(R.id.btnSwitch);
         btnSwitch.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if (isFlashOn) {
