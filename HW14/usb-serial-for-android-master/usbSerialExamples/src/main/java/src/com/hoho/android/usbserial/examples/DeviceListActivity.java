@@ -189,7 +189,7 @@ public class DeviceListActivity extends Activity {
                 mEntries.addAll(result);
                 mAdapter.notifyDataSetChanged();
                 mProgressBarTitle.setText(
-                        String.format("%s device(s) found",Integer.valueOf(mEntries.size())));
+                        String.format("%s Rabbit(s) found",Integer.valueOf(mEntries.size())));
                 hideProgressBar();
                 Log.d(TAG, "Done refreshing, " + mEntries.size() + " entries found.");
             }

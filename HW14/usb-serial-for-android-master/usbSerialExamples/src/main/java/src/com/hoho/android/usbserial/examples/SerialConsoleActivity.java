@@ -21,6 +21,7 @@
 
 package com.hoho.android.usbserial.examples;
 
+// CDC
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,25 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+// CAMERA
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.TextureView;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import static android.graphics.Color.blue;
+import static android.graphics.Color.green;
+import static android.graphics.Color.red;
+import static android.graphics.Color.rgb;
+
+
 /**
  * Monitors a single {@link UsbSerialPort} instance, showing all data
  * received.
@@ -49,22 +69,30 @@ import java.util.concurrent.Executors;
 public class SerialConsoleActivity extends Activity {
 
     private final String TAG = SerialConsoleActivity.class.getSimpleName();
-
-    /**
-     * Driver instance, passed in statically via
-     * {@link #show(Context, UsbSerialPort)}.
-     *
-     * <p/>
-     * This is a devious hack; it'd be cleaner to re-create the driver using
-     * arguments passed in with the {@link #startActivity(Intent)} intent. We
-     * can get away with it because both activities will run in the same
-     * process, and this is a simple demo.
-     */
     private static UsbSerialPort sPort = null;
 
     private TextView mTitleTextView;
     private SeekBar myControl;
     private TextView myTextView;
+    //
+    private Camera      mCamera;
+    private TextureView mTextureView;
+    private SurfaceView mSurfaceView;
+    private SurfaceHolder mSurfaceHolder;
+    private Bitmap      bmp = Bitmap.createBitmap(640,480,Bitmap.Config.ARGB_8888);
+    private Canvas      canvas = new Canvas(bmp);
+    private Paint       paint1 = new Paint();
+    private TextView    mTextView;
+    private SeekBar     myControl1;
+    private SeekBar     myControl2;
+    private SeekBar     myControl3;
+    private TextView    myTextView1;
+    private TextView    myTextView2;
+    private TextView    myTextView3;
+    private ImageButton btnSwitch;
+    private boolean     isFlashOn;
+    Parameters params;
+
 
     private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
@@ -95,9 +123,9 @@ public class SerialConsoleActivity extends Activity {
         setContentView(R.layout.serial_console);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
-        myControl = (SeekBar) findViewById(R.id.seek1);
-        myTextView = (TextView) findViewById(R.id.textView01);
-        myTextView.setText("Waiting to start...");
+        myControl = (SeekBar) findViewById(R.id.seekS);
+        myTextView = (TextView) findViewById(R.id.textView0S);
+        myTextView.setText("--%");
         setMyControlListener();
     }
 
@@ -108,6 +136,12 @@ public class SerialConsoleActivity extends Activity {
         stopIoManager();
         if (sPort != null) {
             try {
+                int i = 100;
+                String sendString = String.valueOf(i) + "\n";
+                try {
+                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
+                }
+                catch (IOException e) {}
                 sPort.close();
             } catch (IOException e) {
                 // Ignore.
@@ -206,7 +240,7 @@ public class SerialConsoleActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                final String message = "Speed: " + (progress-100) + "%\n\n";
+                final String message = (progress-100) + "%\n\n";
                 myTextView.setText(message);
             }
 
