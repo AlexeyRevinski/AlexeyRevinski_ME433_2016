@@ -11,11 +11,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -26,22 +29,23 @@ import static android.graphics.Color.red;
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends Activity implements TextureView.SurfaceTextureListener {
-    private Camera mCamera;
+    private Camera      mCamera;
     private TextureView mTextureView;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mSurfaceHolder;
-    private Bitmap bmp = Bitmap.createBitmap(640,480,Bitmap.Config.ARGB_8888);
-    private Canvas canvas = new Canvas(bmp);
-    private Paint paint1 = new Paint();
-    private TextView mTextView;
-    private SeekBar myControl1;
-    private SeekBar myControl2;
-    private SeekBar myControl3;
-    private SeekBar myControl4;
-    private TextView myTextView1;
-    private TextView myTextView2;
-    private TextView myTextView3;
-    private TextView myTextView4;
+    private Bitmap      bmp = Bitmap.createBitmap(640,480,Bitmap.Config.ARGB_8888);
+    private Canvas      canvas = new Canvas(bmp);
+    private Paint       paint1 = new Paint();
+    private TextView    mTextView;
+    private SeekBar     myControl1;
+    private SeekBar     myControl2;
+    private SeekBar     myControl3;
+    private TextView    myTextView1;
+    private TextView    myTextView2;
+    private TextView    myTextView3;
+    private ImageButton btnSwitch;
+    private boolean     isFlashOn;
+    Parameters params;
 
 
     static long prevtime = 0; // for FPS calculation
@@ -61,26 +65,35 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         //
         myControl1 = (SeekBar) findViewById(R.id.seek1);
         myTextView1 = (TextView) findViewById(R.id.textView01);
-        myTextView1.setText("R: "+myControl1.getProgress());
+        myTextView1.setText("R  : "+myControl1.getProgress());
         //
         myControl2 = (SeekBar) findViewById(R.id.seek2);
         myTextView2 = (TextView) findViewById(R.id.textView02);
-        myTextView2.setText("G: "+myControl2.getProgress());
+        myTextView2.setText("G  : "+myControl2.getProgress());
         //
         myControl3 = (SeekBar) findViewById(R.id.seek3);
         myTextView3 = (TextView) findViewById(R.id.textView03);
-        myTextView3.setText("B: "+myControl3.getProgress());
-        //
-        myControl4 = (SeekBar) findViewById(R.id.seek4);
-        myTextView4= (TextView) findViewById(R.id.textView04);
-        myTextView4.setText("D: "+myControl4.getProgress());
+        myTextView3.setText("RG: " + myControl3.getProgress());
         //
         paint1.setColor(0xffff0000); // red
         paint1.setTextSize(24);
         setMyControlListener1();
         setMyControlListener2();
         setMyControlListener3();
-        setMyControlListener4();
+        btnSwitch = (ImageButton)findViewById(R.id.btnSwitch);
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (isFlashOn) {
+                    // turn off flash
+                    turnOffFlash();
+                } else {
+                    // turn on flash
+                    turnOnFlash();
+                }
+            }
+        });
     }
 
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -121,8 +134,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         if (c != null) {
             int rthresh = myControl1.getProgress();
             int gthresh = myControl2.getProgress();
-            int bthresh = myControl3.getProgress();
-            int tthresh = myControl4.getProgress();
+            int tthresh = myControl3.getProgress();
             int[] pixels1 = new int[bmp.getWidth()];
             int[] pixels2 = new int[bmp.getWidth()];
             int[] pixels3 = new int[bmp.getWidth()];
@@ -244,7 +256,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                myTextView1.setText("R: "+progress);
+                myTextView1.setText("R  : "+progress);
             }
 
             @Override
@@ -265,7 +277,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                myTextView2.setText("G: "+progress);
+                myTextView2.setText("G  : "+progress);
             }
 
             @Override
@@ -286,7 +298,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                myTextView3.setText("B: "+progress);
+                myTextView3.setText("RG: "+progress);
             }
 
             @Override
@@ -299,25 +311,20 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             }
         });
     }
-    private void setMyControlListener4() {
-        myControl4.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-
-            int progressChanged = 0;
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChanged = progress;
-                myTextView4.setText("D: "+progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+    private void turnOnFlash() {
+        if (!isFlashOn) {
+            params = mCamera.getParameters();
+            params.setFlashMode(Parameters.FLASH_MODE_TORCH);
+            mCamera.setParameters(params);
+            isFlashOn = true;
+        }
+    }
+    private void turnOffFlash() {
+        if (isFlashOn) {
+            params = mCamera.getParameters();
+            params.setFlashMode(Parameters.FLASH_MODE_OFF);
+            mCamera.setParameters(params);
+            isFlashOn = false;
+        }
     }
 }
