@@ -29,14 +29,10 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.hoho.android.usbserial.driver.UsbSerialPort;
-import com.hoho.android.usbserial.examples.R;
 import com.hoho.android.usbserial.util.HexDump;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
@@ -67,12 +63,8 @@ public class SerialConsoleActivity extends Activity {
     private static UsbSerialPort sPort = null;
 
     private TextView mTitleTextView;
-    private TextView mDumpTextView;
-    private ScrollView mScrollView;
     private SeekBar myControl;
     private TextView myTextView;
-    private CheckBox chkDTR;
-    private CheckBox chkRTS;
 
     private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
 
@@ -103,34 +95,10 @@ public class SerialConsoleActivity extends Activity {
         setContentView(R.layout.serial_console);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
-        mDumpTextView = (TextView) findViewById(R.id.consoleText);
-        mScrollView = (ScrollView) findViewById(R.id.demoScroller);
         myControl = (SeekBar) findViewById(R.id.seek1);
         myTextView = (TextView) findViewById(R.id.textView01);
-        chkDTR = (CheckBox) findViewById(R.id.checkBoxDTR);
-        chkRTS = (CheckBox) findViewById(R.id.checkBoxRTS);
+        myTextView.setText("Waiting to start...");
         setMyControlListener();
-
-        chkDTR.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                try {
-                    sPort.setDTR(isChecked);
-                } catch (IOException x) {
-                }
-            }
-        });
-
-        chkRTS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                try {
-                    sPort.setRTS(isChecked);
-                } catch (IOException x) {
-                }
-            }
-        });
-
     }
 
 
@@ -173,14 +141,6 @@ public class SerialConsoleActivity extends Activity {
                 sPort.open(connection);
                 sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
 
-                showStatus(mDumpTextView, "CD  - Carrier Detect", sPort.getCD());
-                showStatus(mDumpTextView, "CTS - Clear To Send", sPort.getCTS());
-                showStatus(mDumpTextView, "DSR - Data Set Ready", sPort.getDSR());
-                showStatus(mDumpTextView, "DTR - Data Terminal Ready", sPort.getDTR());
-                showStatus(mDumpTextView, "DSR - Data Set Ready", sPort.getDSR());
-                showStatus(mDumpTextView, "RI  - Ring Indicator", sPort.getRI());
-                showStatus(mDumpTextView, "RTS - Request To Send", sPort.getRTS());
-
                 int i = myControl.getProgress();
                 String sendString = String.valueOf(i) + "\n";
                 try {
@@ -199,7 +159,7 @@ public class SerialConsoleActivity extends Activity {
                 sPort = null;
                 return;
             }
-            mTitleTextView.setText("Serial device: " + sPort.getClass().getSimpleName());
+            mTitleTextView.setText("Rabbit Run");
         }
         onDeviceStateChange();
     }
@@ -228,8 +188,14 @@ public class SerialConsoleActivity extends Activity {
     private void updateReceivedData(byte[] data) {
         final String message = "Read " + data.length + " bytes: \n"
                 + HexDump.dumpHexString(data) + "\n\n";
-        mDumpTextView.append(message);
-        mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
+        //mDumpTextView.append(message);
+        //mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
+        int i = myControl.getProgress();
+        String sendString = String.valueOf(i) + "\n";
+        try {
+            sPort.write(sendString.getBytes(),10); // 10 is the timeout
+        }
+        catch (IOException e) {}
     }
 
     private void setMyControlListener() {
@@ -240,14 +206,8 @@ public class SerialConsoleActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                final String message = "PIC32 says: " + progress + "\n\n";
+                final String message = "Speed: " + (progress-100) + "%\n\n";
                 myTextView.setText(message);
-                int i = myControl.getProgress();
-                String sendString = String.valueOf(i) + "\n";
-                try {
-                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
-                }
-                catch (IOException e) {}
             }
 
             @Override
