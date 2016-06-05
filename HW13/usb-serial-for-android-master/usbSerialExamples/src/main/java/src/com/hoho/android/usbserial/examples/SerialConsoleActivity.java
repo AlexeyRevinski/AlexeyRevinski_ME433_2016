@@ -181,6 +181,13 @@ public class SerialConsoleActivity extends Activity {
                 showStatus(mDumpTextView, "RI  - Ring Indicator", sPort.getRI());
                 showStatus(mDumpTextView, "RTS - Request To Send", sPort.getRTS());
 
+                int i = myControl.getProgress();
+                String sendString = String.valueOf(i) + "\n";
+                try {
+                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
+                }
+                catch (IOException e) {}
+
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
                 mTitleTextView.setText("Error opening device: " + e.getMessage());
@@ -223,7 +230,6 @@ public class SerialConsoleActivity extends Activity {
                 + HexDump.dumpHexString(data) + "\n\n";
         mDumpTextView.append(message);
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
-        byte[] sData = {'a',0}; try { sPort.write(sData, 10); } catch (IOException e) { }
     }
 
     private void setMyControlListener() {
@@ -236,6 +242,12 @@ public class SerialConsoleActivity extends Activity {
                 progressChanged = progress;
                 final String message = "PIC32 says: " + progress + "\n\n";
                 myTextView.setText(message);
+                int i = myControl.getProgress();
+                String sendString = String.valueOf(i) + "\n";
+                try {
+                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
+                }
+                catch (IOException e) {}
             }
 
             @Override
