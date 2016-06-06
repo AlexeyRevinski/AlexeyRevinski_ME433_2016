@@ -89,13 +89,20 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
     private TextView    myTextView1;
     private TextView    myTextView2;
     private TextView    myTextView3;
-    private ImageButton btnSwitch;
+    private ImageButton btnSwitch1;
+    private ImageButton btnSwitch2;
+    private ImageButton btnSwitch3;
     private boolean     isFlashOn;
     Parameters params;
     int COM1;
-    int COM2;
-    int COM3;
+    int COM2 = 0;
+    int COM3 = 0;
+    int stop;
     int err = 0;
+    int startY1 = 0; // which row in the bitmap to read
+    int startY2 = 0;
+    //int maxWide = 640;
+    //int Xerror = 100;
 
     static long prevtime = 0; // for FPS calculation
 
@@ -130,7 +137,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         mTitleTextView = (TextView) findViewById(R.id.demoTitle);
         myControl = (SeekBar) findViewById(R.id.seekS);
         myTextView = (TextView) findViewById(R.id.textView0S);
-        myTextView.setText("--%");
+        myTextView.setText("Y : ");
         setMyControlListener();
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceview);
@@ -147,7 +154,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         //
         myControl2 = (SeekBar) findViewById(R.id.seek2);
         myTextView2 = (TextView) findViewById(R.id.textView02);
-        myTextView2.setText("RG  : "+myControl2.getProgress());
+        myTextView2.setText("RG: "+myControl2.getProgress());
         //
         myControl3 = (SeekBar) findViewById(R.id.seek3);
         myTextView3 = (TextView) findViewById(R.id.textView03);
@@ -158,8 +165,10 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         setMyControlListener1();
         setMyControlListener2();
         setMyControlListener3();
-        btnSwitch = (ImageButton)findViewById(R.id.btnSwitch);
-        btnSwitch.setOnClickListener(new View.OnClickListener() {
+        btnSwitch1 = (ImageButton)findViewById(R.id.btnSwitch1);
+        btnSwitch2 = (ImageButton)findViewById(R.id.btnSwitch2);
+        btnSwitch3 = (ImageButton)findViewById(R.id.btnSwitch3);
+        btnSwitch1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isFlashOn) {
@@ -171,15 +180,33 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 }
             }
         });
+        btnSwitch2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                turnOffFlash();
+                stop=1;
+                sendData();
+            }
+        });
+        btnSwitch3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stop = 0;
+                if (isFlashOn) {
+                    turnOnFlash();
+                }
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        stop = 1;
+        sendData();
         stopIoManager();
         if (sPort != null) {
             try {
-                sendData(1);
                 sPort.close();
             } catch (IOException e) {
                 // Ignore.
@@ -212,7 +239,8 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             try {
                 sPort.open(connection);
                 sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-                sendData(0);
+                stop = 1;
+                sendData();
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
                 mTitleTextView.setText("Error opening device: " + e.getMessage());
@@ -266,13 +294,13 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         final Canvas c = mSurfaceHolder.lockCanvas();
         if (c != null) {
             int rthresh = myControl1.getProgress();
-            int gthresh = myControl3.getProgress();
-            int bthresh = myControl2.getProgress();
+            int gthresh = 255;//myControl3.getProgress();
+            int bthresh = 255;//myControl2.getProgress();
             int[] pixels1 = new int[bmp.getWidth()];
             int[] pixels2 = new int[bmp.getWidth()];
             int[] pixels3 = new int[bmp.getWidth()];
-            int startY1 = 120; // which row in the bitmap to read
-            int startY2 = 240;
+            //int startY1 = 120; // which row in the bitmap to read
+            //int startY2 = 240;
             int startY3 = 360;
             // only look at one row in the image
             bmp.getPixels(pixels1, 0, bmp.getWidth(), 0, startY1, bmp.getWidth(), 1); // (array name, offset inside array, stride (size of row), start x, start y, num pixels to read per row, num rows to read)
@@ -312,6 +340,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 // if it is greater than some value (600 here), consider it black
                 // play with the 600 value if you are having issues reliably seeing the line
                 //if ((red(pixels2[i])>rthresh)&&(blue(pixels2[i])<bthresh)&&(green(pixels2[i])<gthresh)) {
+
                 if ((red(pixels2[i])>rthresh)&&((255-(green(pixels2[i])-red(pixels2[i])) > gthresh))&&((255-(blue(pixels2[i])-red(pixels2[i])) > bthresh))){
                     thresholdedPixels2[i] = 255*3;
                     thresholdedColors2[i] = rgb(255,0,0);
@@ -322,10 +351,12 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 }
                 wbTotal2 = wbTotal2 + thresholdedPixels2[i];
                 wbCOM2 = wbCOM2 + thresholdedPixels2[i]*i;
+
                 // sum the red, green and blue, subtract from 255 to get the darkness of the pixel.
                 // if it is greater than some value (600 here), consider it black
                 // play with the 600 value if you are having issues reliably seeing the line
                 //if ((red(pixels3[i])>rthresh)&&(blue(pixels3[i])<bthresh)&&(green(pixels3[i])<gthresh)) {
+
                 if ((red(pixels3[i])>rthresh)&&((255-(green(pixels3[i])-red(pixels3[i])) > gthresh))&&((255-(blue(pixels3[i])-red(pixels3[i])) > bthresh))){
                     thresholdedPixels3[i] = 255*3;
                     thresholdedColors3[i] = rgb(255, 0, 0);
@@ -336,6 +367,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 }
                 wbTotal3 = wbTotal3 + thresholdedPixels3[i];
                 wbCOM3 = wbCOM3 + thresholdedPixels3[i]*i;
+
             }
             //watch out for divide by 0
             if (wbTotal1<=0) {
@@ -344,18 +376,21 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             else {
                 COM1 = wbCOM1/wbTotal1;
             }
+
             if (wbTotal2<=0) {
                 COM2 = bmp.getWidth()/2;
             }
             else {
                 COM2 = wbCOM2/wbTotal2;
             }
+
             if (wbTotal3<=0) {
                 COM3 = bmp.getWidth()/2;
             }
             else {
                 COM3 = wbCOM3/wbTotal3;
             }
+
 
             // draw a circle where you think the COM is
             canvas.drawCircle(COM1, startY1, 5, paint1);
@@ -368,6 +403,12 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             canvas.drawText("COM = " + COM1, 10, startY1, paint1);
             canvas.drawText("COM = " + COM2, 10, startY2, paint1);
             canvas.drawText("COM = " + COM3, 10, startY3, paint1);
+
+            /////////////////////////////////////////////////////////////
+            startY1 = myControl.getProgress();
+            startY2 = myControl2.getProgress();
+            /////////////////////////////////////////////////////////////
+
             c.drawBitmap(bmp, 0, 0, null);
             mSurfaceHolder.unlockCanvasAndPost(c);
 
@@ -407,7 +448,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                myTextView2.setText("RG  : " + progress);
+                myTextView2.setText("RG: " + progress);
             }
 
             @Override
@@ -485,7 +526,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 + HexDump.dumpHexString(data) + "\n\n";
         //mDumpTextView.append(message);
         //mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
-        sendData(0);
+        sendData();
     }
 
     private void setMyControlListener() {
@@ -496,7 +537,8 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChanged = progress;
-                final String message = (progress-100) + "%\n\n";
+                startY1 = progress;
+                final String message = "Y : " + progress + "\n\n";
                 myTextView.setText(message);
             }
 
@@ -510,7 +552,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         });
     }
 
-    private void sendData(int stop){
+    private void sendData(){
         String sendString =
                  String.valueOf(myControl.getProgress())+" "
                 +String.valueOf(COM1)+" "
