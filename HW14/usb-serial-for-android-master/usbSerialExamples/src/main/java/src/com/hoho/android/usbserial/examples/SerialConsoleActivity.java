@@ -92,6 +92,10 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
     private ImageButton btnSwitch;
     private boolean     isFlashOn;
     Parameters params;
+    int COM1;
+    int COM2;
+    int COM3;
+    int err = 0;
 
     static long prevtime = 0; // for FPS calculation
 
@@ -175,12 +179,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
         stopIoManager();
         if (sPort != null) {
             try {
-                int i = 100;
-                String sendString = String.valueOf(i) + "\n";
-                try {
-                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
-                }
-                catch (IOException e) {}
+                sendData(1);
                 sPort.close();
             } catch (IOException e) {
                 // Ignore.
@@ -213,14 +212,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             try {
                 sPort.open(connection);
                 sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-
-                int i = myControl.getProgress();
-                String sendString = String.valueOf(i) + "\n";
-                try {
-                    sPort.write(sendString.getBytes(),10); // 10 is the timeout
-                }
-                catch (IOException e) {}
-
+                sendData(0);
             } catch (IOException e) {
                 Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
                 mTitleTextView.setText("Error opening device: " + e.getMessage());
@@ -345,9 +337,6 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 wbTotal3 = wbTotal3 + thresholdedPixels3[i];
                 wbCOM3 = wbCOM3 + thresholdedPixels3[i]*i;
             }
-            int COM1;
-            int COM2;
-            int COM3;
             //watch out for divide by 0
             if (wbTotal1<=0) {
                 COM1 = bmp.getWidth()/2;
@@ -496,12 +485,7 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
                 + HexDump.dumpHexString(data) + "\n\n";
         //mDumpTextView.append(message);
         //mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
-        int i = myControl.getProgress();
-        String sendString = String.valueOf(i) + "\n";
-        try {
-            sPort.write(sendString.getBytes(),10); // 10 is the timeout
-        }
-        catch (IOException e) {}
+        sendData(0);
     }
 
     private void setMyControlListener() {
@@ -524,6 +508,20 @@ public class SerialConsoleActivity extends Activity implements TextureView.Surfa
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    private void sendData(int stop){
+        String sendString =
+                 String.valueOf(myControl.getProgress())+" "
+                +String.valueOf(COM1)+" "
+                +String.valueOf(COM2)+" "
+                +String.valueOf(COM3)+" "
+                +String.valueOf(stop)+" "
+                +String.valueOf(err)+"\n";
+        try {
+            sPort.write(sendString.getBytes(),10); // 10 is the timeout
+        }
+        catch (IOException e) {}
     }
 
     /**
