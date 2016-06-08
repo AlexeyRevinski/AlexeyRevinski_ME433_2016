@@ -1,0 +1,104 @@
+------------------------------------------------------------------
+THE RABBIT BOT		by Alexey Revinski		06/08/2016
+------------------------------------------------------------------
+
+-----------------------
+LINE FOLLOWING STRATEGY
+-----------------------
+
+The robot was designed to be small and compact. However, I initially didn't take into
+	account the fact that most of the mass of my robot had to be at or just behind
+	the axis of my wheel base to avoid friction on the third point of contact.
+	This resulted in a considerable amount of friction, and I had to compensate
+	for losses of speed related to this in other ways.
+
+The robot had exceptional tracking algorithm that reliably tracked the only brown line
+	pretty much regardless of ambient lighting. The camera was set at 45 degrees,
+	and I was able to track the line very far in front of the robot. Because
+	the tracking was so reliable, I pushed the analyzed image row as far upwards
+	as possible without physically losing the line due to robot's speed.
+
+This allowed me to significantly "cut corners". Instead of following the immediate line
+	points, I followed the line about 1.5 feet in front of the robot, which ended up
+	saving me a lot of time.
+
+
+----------------
+MOTOR CONTROLLER
+----------------
+
+I used proportional motor control to manipulate motor speed. The final version of the
+	code only used one COM (COM1, topmost row).
+
+The PIC was receiving 6 parameters (see below), and was using one of the COMs to
+	calculate PWM frequency.
+1) Controller found the error of COM-320 (320 pixels is the middle of the screen)
+2) If the error was negative, the line was leaning to the left; right motor would be
+	left to run on maximum speed, and the left PWM was decreased proportionally
+	to the error.
+3) If the error was positive, the opposite was implemented.
+
+This control algorithm was very efficient and smooth; no PID was needed.
+
+
+-----------------
+APP FUNCTIONALITY
+-----------------
+
+The app processed COM of three different rows, and sent the following to PIC:
+
+send(SPEED,COM1,COM2,COM3,STOP,ERROR)
+
+Although the app was processing all 3 rows in the image, the PIC software ended up 
+	only using the topmost COM as the guide to its controller.
+
+1) SPEED command was initially used as a limit to how fast the motors would be able to
+	turn. This functionality was discarded later because the robot could run 
+	on maximum speed with no problems.
+2) COM1 was used in the final code as the primary controller set point. This was the
+	topmost row.
+3) COM2 was intermittently used with COM1 in previous versions for different types of
+	motor controllers (averaging, proportional, etc.) However, its use was 
+	discarded for the final version.
+4) Similarly to COM2, COM3 was intermittently used in early versions of the code.
+5) The STOP command was used in conjunction with START and STOP buttons (see below) to
+	turn off the motors when the app would go to onPause() function, and resume
+	motor function when the START button would be pressed.
+6) The ERROR command was there just in case I would implement an error motor sequence.
+	For example, if it would be losing the line, it could either backtrack, or 
+	perform a scanning (turn in a circle) sequence to find the line. This function
+	was never necessary, and I never used the ERROR command.
+
+Throughout the testing of the robot, the communication consisting of the above 6 
+	parameters was left as it was originally programmed, but not all of the values
+	were used. In the final version of the code, only COM1 and STOP were used to
+	control the motors, but all six parameters were sent and received anyway.
+
+---------------------------------
+The app used 4 sliders. The 3 bottom ones were used for color thresholds:
+1) The "Y" slider was used to change the Y position of the topmost analyzed row.
+2) The "R" slider indicated the lowest red hue beyond which a pixel would be
+	considered for the COM calculation.
+3) The "RG" slider indicated threshold of sensitivity to the difference between green
+	and red colors in a pixel. If (green-red) was higher than certain threshold (so 
+	the pixel is more green than the brown line), the pixel was discarded.
+4) The "RB" slider was working similarly to RG, except with blue color. If the pixel
+	had more blue than red up to a certain threshold, the pixel was discarded from
+	COM calculation.
+
+With minor tuning, this code reliably caught only the brown line and discarded the 
+	green background, blue letters on the canvas, and all other various objects
+	on the field a 100% of the time. Shadows did not matter either, since I was
+	filtering out green and blue hues, and did not deal with brightness.
+
+---------------------------------
+The app also used 3 buttons:
+1) The WHITE toggled the phone's flashlight on/off, mostly for preliminary testing.
+	It turned out that flash not only took a lot of current from the motors, but
+	it also was never necessary for my tracking algorithm, so it was never used.
+2) RED sent a "STOP" message to the PIC, so the motor signal would turn to 0 PWM.
+	This was used for mere convenience of doing everything from screen.
+3) GREEN would resume the opeartion of the PIC, so the robot would start moving. This
+	was implemented so that I could control when the robot would start following
+	the line. I wanted to turn on the app and position the robot on the
+	line before it would start moving. Again, this was for the sake of convenience.
